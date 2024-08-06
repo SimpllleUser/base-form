@@ -1,38 +1,40 @@
 <script lang="ts" setup>
 
-import { InputConfig } from '../../form/composables/useForm';
-import {computed} from "vue";
+import { computed, defineProps, defineEmits } from 'vue';
+import { TextInput } from '@/shared/ui/form/inputs/models/TextInput';
+import type { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
 
 interface Props {
-  modelValue: InputConfig
+  modelValue: TextInput
 }
 
 interface Emits {
-  (event: 'update:modelValue', payload: InputConfig): void
+  (event: 'update:modelValue', payload: ABaseInput): void
 }
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
 
 const input = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
-})
+  set: (value) => emit('update:modelValue', value),
+});
 
-const onInput = (event) => {
-  input.value.value = event.target.value
-}
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  input.value.value = target.value;
+};
 
 </script>
 
 <template>
-  <labe> {{ input.label }} </labe>
+  <label style="font-size: 14px"> {{ input.label }} </label>
   <br>
   <component :is="input.component" :value="input.value" :type="input.type" @input="onInput" />
   <br>
-  <smal>{{ input.hint }}</smal>
+  <small style="font-size: 12px">{{ input.hint }}</small>
+  errors: {{ input.getErrors() }}
 </template>
-
 
 <style scoped lang="scss">
 

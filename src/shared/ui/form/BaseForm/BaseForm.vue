@@ -1,31 +1,64 @@
 <script setup lang="ts">
 
-import { useForm, text, InputConfig } from '../composables/useForm';
-import BaseInput from '@/shared/ui/inputs/base/BaseInput.vue';
+import { useForm } from '@/shared/ui/form/composables';
+import input from '@/shared/ui/form/inputs/base';
+import { TextInput } from '@/shared/ui/form/inputs/models/TextInput';
+import { ValidationRule } from '@/shared/lib/input-validator/types';
+import { type IListInput } from '@/shared/ui/form/inputs/models/ListInput';
+import ListInput from '@/shared/ui/inputs/base/ListInput.vue';
 
-interface FormConfig {
-  text: InputConfig
-}
+interface FormConfig { list: IListInput<{ text: TextInput, description: TextInput }>}
 
-const formConfig: FormConfig = {
-
-  text: text({
-    value: 'Some text',
-    label: 'Test input',
-    hint: 'Hint for text',
-  }),
+const formConfig: { list: IListInput<{ text: TextInput, description: TextInput }> } = {
+  list: input.list([
+    {
+      text: input.text({
+        value: 'Some text',
+        label: 'Label',
+        hint: 'Hint',
+        rules: [`${ValidationRule.Length}: 5`],
+      }),
+      description: input.text({
+        value: 'Some text description',
+        label: 'Label description',
+        hint: 'Hint description',
+        rules: [`${ValidationRule.Length}: 5`],
+      }),
+    },
+    {
+      text: input.text({
+        value: 'Some text',
+        label: 'Label',
+        hint: 'Hint',
+        rules: [`${ValidationRule.Length}: 5`],
+      }),
+      description: input.text({
+        value: 'Some text description',
+        label: 'Label description',
+        hint: 'Hint description',
+        rules: [`${ValidationRule.Length}: 5`],
+      }),
+    },
+  ]),
 };
 
-const { form } = useForm<FormConfig>(formConfig);
+const { form, validate } = useForm<FormConfig>(formConfig);
 
 </script>
 
 <template>
-    <div>
-        BaseForm: {{ form }}
-    </div>
   <div>
-    <BaseInput v-model="form.text" />
+    BaseForm: {{ form.list.isValid() }}
+    <hr>
+    <pre>
+      {{ form }}
+    </pre>
+  </div>
+  <div>
+    <ListInput v-model="form.list.items" />
+  </div>
+  <div>
+    <button @click="validate">Validate</button>
   </div>
 </template>
 

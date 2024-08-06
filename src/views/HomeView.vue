@@ -5,7 +5,6 @@ import { BaseForm } from '@/shared/ui/form';
 <template>
   <main>
     <div>
-      11
       <BaseForm />
     </div>
   </main>

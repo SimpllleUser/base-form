@@ -1,1 +1,1 @@
-export { default as BaseForm } from './BaseForm.vue'
+export { default as BaseForm } from './BaseForm.vue';

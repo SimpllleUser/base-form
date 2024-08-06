@@ -1,28 +1,12 @@
-import { InputConfig, InputPrams } from "@/shared/ui/form/composables/types";
+import type { InputPrams } from 'src/shared/ui/form';
+import { TextInput } from '../../../ui/form/inputs/models/TextInput';
+import { ListInput } from '../../../ui/form/inputs/models/ListInput';
 
-const DEFAULT_PARAMS_INPUT: InputPrams = {
-    value: '',
-    label: '',
-    hint: '',
-    rules: [],
-}
-
-export const text = (params: Partial<InputPrams>): InputConfig => ({
-    ...DEFAULT_PARAMS_INPUT,
-    ...params,
-    component: 'input',
-    type: 'text',
-})
-
-
-// const number = () => ({})
-// const select = () => ({})
-// const check = () => ({})
-// const switcher = () => ({})
-
-
+const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(params);
+const list = <T>(items: Array<T>): ListInput<T> => new ListInput<T>(items);
 const input = {
-    text,
-}
+  text,
+  list,
+};
 
-export default inputs
+export default input;
