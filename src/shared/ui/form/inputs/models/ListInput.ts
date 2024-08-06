@@ -1,4 +1,4 @@
-import type { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
+import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
 export interface IListInput<T> {
   items: Array<T>;

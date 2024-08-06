@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import type { ListInput } from '@/shared/ui/form/inputs/models/ListInput';
-import { BaseInput } from '@/shared/ui/inputs';
-import type { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
+import type { ListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
+import { BaseInput } from '../../../../shared/ui/inputs';
+import type { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
 
   interface Props {
     modelValue: ListInput<ABaseInput>

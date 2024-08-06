@@ -1,4 +1,4 @@
-import { ValidationRule } from '@/shared/lib/input-validator/types';
+import { ValidationRule } from '../../../../shared/lib/input-validator/types';
 
 export interface InputPrams<T = string> {
     value: T;

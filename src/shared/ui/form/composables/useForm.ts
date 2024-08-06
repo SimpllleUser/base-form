@@ -1,6 +1,6 @@
 import { reactive, type UnwrapNestedRefs } from 'vue';
-import type { DefaultFormConfig } from '@/shared/ui/form/composables/types';
-import type { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
+import type { DefaultFormConfig } from '../../../../shared/ui/form/composables/types';
+import type { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
 
 export function useForm<T extends object = DefaultFormConfig>(config: T): {
   form: UnwrapNestedRefs<T>, validate: CallableFunction

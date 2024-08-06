@@ -1,4 +1,4 @@
-import type { InputPrams } from 'src/shared/ui/form';
+import type { InputPrams } from '../../../../shared/ui/form';
 import { TextInput } from '../../../ui/form/inputs/models/TextInput';
 import { ListInput } from '../../../ui/form/inputs/models/ListInput';
 

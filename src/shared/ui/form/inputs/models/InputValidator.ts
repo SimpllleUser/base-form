@@ -1,6 +1,6 @@
-import type { ValidationRule, ValidationFunction } from 'src/shared/lib/input-validator/types';
-import { rules } from '@/shared/lib/input-validator/rules';
-import { isBoolean, isString } from '@/shared/lib/utils';
+import type { ValidationRule, ValidationFunction } from '../../../../../shared/lib/input-validator/types';
+import { rules } from '../../../../../shared/lib/input-validator/rules';
+import { isBoolean, isString } from '../../../../../shared/lib/utils';
 
 export class InputValidator<T> {
   private readonly validationRules?: Array<ValidationRule | string> = [];
@@ -13,7 +13,7 @@ export class InputValidator<T> {
     const [rule, paramsInString] = validationRule?.split(':') || [];
     const paramsInArray: Array<string> = paramsInString?.split(',') || [];
 
-    const validationFunction = rules[rule] as ValidationFunction;
+    const validationFunction = rules[rule as ValidationRule] as ValidationFunction;
 
     return (value: T) => validationFunction(value, ...paramsInArray);
   }

@@ -1,7 +1,7 @@
-import type { InputPrams } from '@/shared/ui/form/composables/types';
-import { ValidationRule } from '@/shared/lib/input-validator/types';
-import { DEFAULT_PARAMS_INPUT } from '@/shared/ui/form/inputs/constants';
-import { InputValidator } from '@/shared/ui/form/inputs/models/InputValidator';
+import type { InputPrams } from '../../../../../shared/ui/form/composables/types';
+import { ValidationRule } from '../../../../../shared/lib/input-validator/types';
+import { DEFAULT_PARAMS_INPUT } from '../../../../../shared/ui/form/inputs/constants';
+import { InputValidator } from '../../../../../shared/ui/form/inputs/models/InputValidator';
 
 export interface BaseInputConfig<T> {
   component: string;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
-import { useForm } from '@/shared/ui/form/composables';
-import input from '@/shared/ui/form/inputs/base';
-import { TextInput } from '@/shared/ui/form/inputs/models/TextInput';
-import { ValidationRule } from '@/shared/lib/input-validator/types';
-import { type IListInput } from '@/shared/ui/form/inputs/models/ListInput';
-import ListInput from '@/shared/ui/inputs/base/ListInput.vue';
+import { useForm } from '../../../../shared/ui/form/composables';
+import input from '../../../../shared/ui/form/inputs/base';
+import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
+import { ValidationRule } from '../../../../shared/lib/input-validator/types';
+import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
+import ListInput from '../../inputs/base/ListInput.vue';
 
 interface FormConfig { list: IListInput<{ text: TextInput, description: TextInput }>}
 
