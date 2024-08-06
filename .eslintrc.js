@@ -65,6 +65,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'no-return-assign': 'off',
     'class-methods-use-this': 0,
     'max-len': [
       'error',
