@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { cloneDeep } from 'lodash';
 import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
