@@ -6,8 +6,8 @@ import { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
 const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(params);
 const list = <T extends Record<string, ABaseInput>>(
   items: Array<T>,
-  defaultItem?: T | null,
-): ListInput<T> => new ListInput<T>(items, defaultItem || null);
+  defaultItem: T,
+): ListInput<T> => new ListInput<T>(items, defaultItem);
 const input = {
   text,
   list,

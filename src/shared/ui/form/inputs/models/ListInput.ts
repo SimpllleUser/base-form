@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash';
 import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
 export interface IListInput<T> {
@@ -16,15 +15,15 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
 
   allowValidate = false;
 
-  defaultItem: T | null = null;
+  defaultItem: T;
 
-  constructor(data: Array<T>, defaultItem: T | null) {
+  constructor(data: Array<T>, defaultItem: T) {
     this.items = data;
     this.defaultItem = defaultItem;
   }
 
   add(): void {
-    this.items.push(this.getItemForCreate());
+    this.items.push(this.defaultItem);
   }
 
   remove(item: T): void {
@@ -47,15 +46,15 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
         }));
   }
 
-  private getItemForCreate(): T {
-    const cleanedItem: T = cloneDeep(this.items[0]);
-    // eslint-disable-next-line guard-for-in,no-restricted-syntax
-    for (const key in cleanedItem) {
-      const item: ABaseInput = cleanedItem[key];
-      if (item) {
-        item.resetValue();
-      }
-    }
-    return this.defaultItem || cleanedItem;
-  }
+  // private getItemForCreate(): T {
+  //   const cleanedItem: T = cloneDeep(this.items[0]);
+  //   // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  //   // for (const key in cleanedItem) {
+  //   //   const item: ABaseInput = cleanedItem[key];
+  //   //   if (item) {
+  //   //     item.resetValue();
+  //   //   }
+  //   // }
+  //   return this.defaultItem || cleanedItem;
+  // }
 }

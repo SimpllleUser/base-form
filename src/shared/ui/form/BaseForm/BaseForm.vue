@@ -7,7 +7,25 @@ import { ValidationRule } from '../../../../shared/lib/input-validator/types';
 import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import ListInput from '../../inputs/base/ListInput.vue';
 
-interface FormConfig { list: IListInput<{ text: TextInput, description: TextInput }>}
+interface IListItem {
+  text: TextInput, description: TextInput
+}
+interface FormConfig { list: IListInput<IListItem>}
+
+const getInputRowDefault = (): IListItem => ({
+  text: input.text({
+    value: '',
+    label: 'Label',
+    hint: 'Hint',
+    rules: [`${ValidationRule.Length}: 5`],
+  }),
+  description: input.text({
+    value: '',
+    label: 'Label description',
+    hint: 'Hint description',
+    rules: [`${ValidationRule.Length}: 5`],
+  }),
+});
 
 const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
   {
@@ -40,8 +58,8 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
   },
 ];
 
-const formConfig: { list: IListInput<{ text: TextInput, description: TextInput }> } = {
-  list: input.list(ITEMS_LIST),
+const formConfig: { list: IListInput<IListItem> } = {
+  list: input.list(ITEMS_LIST, getInputRowDefault()),
 };
 
 const { form, validate } = useForm<FormConfig>(formConfig);
