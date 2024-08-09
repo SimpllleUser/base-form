@@ -4,8 +4,10 @@ import { ListInput } from '../../../ui/form/inputs/models/ListInput';
 import { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
 
 const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(params);
-const list = <T>(items: Array<Record<string, ABaseInput>>,
-  defaultItem?: Record<string, ABaseInput> | null): ListInput<T> => new ListInput<T>(items, defaultItem || null);
+const list = (
+  items: Array<Record<string, ABaseInput>>,
+  defaultItem?: Record<string, ABaseInput> | null,
+): ListInput => new ListInput(items, defaultItem || null);
 const input = {
   text,
   list,
