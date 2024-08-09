@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
 export interface IListInput<T> {
@@ -23,7 +24,7 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
   }
 
   add(): void {
-    this.items.push(this.defaultItem);
+    this.items.push(cloneDeep(this.defaultItem));
   }
 
   remove(item: T): void {
