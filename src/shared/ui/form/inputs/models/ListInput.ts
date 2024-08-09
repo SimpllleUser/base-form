@@ -11,16 +11,14 @@ export interface IListInput<T> {
   canValidate: boolean;
 }
 
-type InputListItemDefaultType = Record<string, ABaseInput>
+export class ListInput<T extends Record<string, ABaseInput>> implements IListInput<T> {
+  items: Array<T>;
 
-export class ListInput {
-  items: Array<InputListItemDefaultType>
+  allowValidate = false;
 
-  allowValidate = false
+  defaultItem: T | null = null;
 
-  defaultItem: Record<string, ABaseInput> | null = null
-
-  constructor(data: Array<Record<string, ABaseInput>>, defaultItem: Record<string, ABaseInput> | null) {
+  constructor(data: Array<T>, defaultItem: T | null) {
     this.items = data;
     this.defaultItem = defaultItem;
   }
@@ -29,13 +27,13 @@ export class ListInput {
     this.items.push(this.getItemForCreate());
   }
 
-  remove(item: Record<string, ABaseInput>): void {
+  remove(item: T): void {
     this.items.splice(this.items.indexOf(item), 1);
   }
 
-  isValid() {
+  isValid(): boolean {
     return this.items
-      .map(item => Object.values(item as unknown as Record<string, ABaseInput>)
+      .map(item => Object.values(item)
         .every((input) => input.isValid()))
       .every(Boolean);
   }
@@ -49,8 +47,8 @@ export class ListInput {
         }));
   }
 
-  private getItemForCreate() {
-    const cleanedItem: InputListItemDefaultType = cloneDeep(this.items[0]);
+  private getItemForCreate(): T {
+    const cleanedItem: T = cloneDeep(this.items[0]);
     // eslint-disable-next-line guard-for-in,no-restricted-syntax
     for (const key in cleanedItem) {
       const item: ABaseInput = cleanedItem[key];
