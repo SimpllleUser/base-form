@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
 export interface IListInput<T> {
@@ -10,20 +11,25 @@ export interface IListInput<T> {
   canValidate: boolean;
 }
 
-export class ListInput<T> {
-  items: Array<T>
+type InputListItemDefaultType = Record<string, ABaseInput>
+
+export class ListInput {
+  items: Array<InputListItemDefaultType>
 
   allowValidate = false
 
-  constructor(data: Array<T>) {
+  defaultItem: Record<string, ABaseInput> | null = null
+
+  constructor(data: Array<Record<string, ABaseInput>>, defaultItem: Record<string, ABaseInput> | null) {
     this.items = data;
+    this.defaultItem = defaultItem;
   }
 
-  add(item: T): void {
-    this.items.push(item);
+  add(): void {
+    this.items.push(this.getItemForCreate());
   }
 
-  remove(item: T): void {
+  remove(item: Record<string, ABaseInput>): void {
     this.items.splice(this.items.indexOf(item), 1);
   }
 
@@ -41,5 +47,17 @@ export class ListInput<T> {
         .forEach((input) => {
           (input as ABaseInput).canValidate = value;
         }));
+  }
+
+  private getItemForCreate() {
+    const cleanedItem: InputListItemDefaultType = cloneDeep(this.items[0]);
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (const key in cleanedItem) {
+      const item: ABaseInput = cleanedItem[key];
+      if (item) {
+        item.resetValue();
+      }
+    }
+    return this.defaultItem || cleanedItem;
   }
 }

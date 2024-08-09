@@ -40,4 +40,8 @@ export abstract class ABaseInput {
   set canValidate(value: boolean) {
     this.allowValidate = value;
   }
+
+  resetValue() {
+    this.value = '';
+  }
 }

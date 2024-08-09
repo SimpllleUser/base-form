@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import type { ListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import { BaseInput } from '../../../../shared/ui/inputs';
+import type { ListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import type { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
 
   interface Props {
@@ -15,17 +15,21 @@ import type { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseIn
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const inputs = computed({
+const listData = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
 </script>
 
 <template>
-  <div v-for="(inputsRow, rowIndex) in inputs" :key="rowIndex" style="display: flex; justify-content: space-between">
+  <div>
+    <button @click="listData.add()">Add</button>
+  </div>
+  <div v-for="(inputsRow, rowIndex) in listData.items" :key="rowIndex" style="display: flex; justify-content: space-between">
     <div v-for="(key, index) in Object.keys(inputsRow)" :key="index" class="flex items-center">
-      <BaseInput v-model="inputsRow[key]" />
+      <BaseInput v-model="inputsRow[key]" :key="`${rowIndex}-{key}`" />
     </div>
+    <button @click="listData.remove(inputsRow)">Remove</button>
   </div>
 </template>
 
