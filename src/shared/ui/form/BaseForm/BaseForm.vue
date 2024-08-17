@@ -64,14 +64,20 @@ const formConfig: { title: TextInput, list: IListInput<IListItem> } = {
   list: input.list(ITEMS_LIST, getInputRowDefault()),
 };
 
-const { form, validate, resetForm } = useForm<FormConfig>(formConfig);
+const {
+  form, validate, resetForm, clearForm,
+} = useForm<FormConfig>(formConfig);
 
 </script>
 
 <template>
   <div>
    <div>
-     BaseForm: {{ form.list.isValid() }} <div><button @click="resetForm">Reset</button></div>
+     BaseForm: {{ form.list.isValid() }}
+     <div>
+       <button @click="clearForm">Clear form</button> |
+       <button @click="resetForm">Reset form</button> |
+     </div>
    </div>
     <hr>
     <pre v-if="false">

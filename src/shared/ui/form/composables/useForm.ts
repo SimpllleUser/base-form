@@ -1,5 +1,7 @@
-import { reactive, type UnwrapNestedRefs } from 'vue';
-import { forOwn } from 'lodash';
+import {
+  ref, type Ref, unref,
+} from 'vue';
+import { cloneDeep, forOwn } from 'lodash';
 import type { DefaultFormConfig } from '../../../../shared/ui/form/composables/types';
 import { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
 import { ListInput } from '../inputs/models/ListInput';
@@ -10,42 +12,59 @@ const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) 
     callback(item as ABaseInput);
   }
   if (typeof item === 'object' && item !== null) {
-    forOwn(item as Record<string, unknown>, (value => {
+    forOwn(item as Record<string, unknown>, (value) => {
       callActionByTree(value, callback);
-    }));
+    });
   }
 };
 
 export function useForm<T extends DefaultFormConfig>(config: T): {
-  form: UnwrapNestedRefs<T>, validate: CallableFunction, resetForm: CallableFunction
+  form: Ref<T>,
+  validate: CallableFunction,
+  resetForm: CallableFunction,
+  clearForm: CallableFunction,
 } {
-  const form = reactive(config);
+  const defaultValue = cloneDeep(config);
+  const form = ref(config) as Ref<T>;
 
   const makeActionForAllInputs = (callback: (input: ABaseInput) => void) => {
-    forOwn(form, (formItem) => {
+    const unwrappedForm = unref(form);
+    forOwn(unwrappedForm, (formItem) => {
       callActionByTree(formItem, (item: ABaseInput) => {
         callback(item);
       });
     });
   };
 
+  const setStateValidation = (state: boolean) => {
+    makeActionForAllInputs((input) => {
+      input.canValidate = state;
+    });
+  };
+
   const validate = () => {
+    setStateValidation(true);
     makeActionForAllInputs((item) => {
-      item.canValidate = true;
       item.isValid();
     });
   };
 
-  const resetForm = () => {
+  const clearForm = () => {
+    setStateValidation(false);
     makeActionForAllInputs((input) => {
-      input.canValidate = false;
       input.resetValue();
     });
+  };
+
+  const resetForm = () => {
+    form.value = cloneDeep(defaultValue);
+    setStateValidation(false);
   };
 
   return {
     form,
     validate,
+    clearForm,
     resetForm,
   };
 }
