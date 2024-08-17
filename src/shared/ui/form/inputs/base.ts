@@ -6,11 +6,7 @@ import { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
 
 import BaseInputText from '@/shared/ui/inputs/base/BaseInputText.vue';
 
-const text = (params: Partial<InputPrams<string>>): TextInput => {
-  const textInput = new TextInput(params);
-  textInput.setComponent(BaseInputText);
-  return textInput;
-};
+const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(params).setComponent(BaseInputText);
 export const list = <T extends Record<string, ABaseInput>>(
   items: Array<T>,
   defaultItem: T,
@@ -31,7 +27,7 @@ class InputConfigurator {
      InputConfigurator.instance = this;
    }
 
-   setComponentToInput(input: InputDataItem) {
+   addInput(input: InputDataItem) {
      forOwn(input, (value, key) => {
        InputConfigurator.instance.inputs[key] = value;
      });
@@ -44,6 +40,6 @@ class InputConfigurator {
 
 const input = new InputConfigurator({ text, list });
 
-export const addInput = input.setComponentToInput;
+export const { addInput } = input;
 
 export default input.getInputs();

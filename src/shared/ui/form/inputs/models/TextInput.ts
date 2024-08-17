@@ -3,7 +3,7 @@ import type { InputPrams } from '../../composables/types';
 import { InputValidator } from './InputValidator';
 
 export class TextInput extends ABaseInput implements BaseInputConfig<string> {
-  component = 'input';
+   component: unknown = 'input';
 
   type = 'text';
 
@@ -32,5 +32,10 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
    getErrors(): string {
      if (!this.allowValidate) return '';
      return this.inputValidator.getErrors(this.getValue());
+   }
+
+   setComponent(component: string | unknown): TextInput {
+     this.component = component;
+     return this;
    }
 }

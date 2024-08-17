@@ -20,11 +20,6 @@ const input = computed({
   set: (value) => emit('update:modelValue', value),
 });
 
-const onInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  input.value.value = target.value;
-};
-
 </script>
 
 <template>

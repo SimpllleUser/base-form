@@ -4,7 +4,7 @@ import { DEFAULT_PARAMS_INPUT } from '../../../../../shared/ui/form/inputs/const
 import { InputValidator } from '../../../../../shared/ui/form/inputs/models/InputValidator';
 
 export interface BaseInputConfig<T> {
-  component: string;
+  component: string | unknown;
   type?: string;
   inputValidator: InputValidator<T>
   getValue(): unknown;
