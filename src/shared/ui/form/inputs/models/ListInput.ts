@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { cloneDeep } from 'lodash';
+import { cloneDeep, forOwn } from 'lodash';
 import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
 
 export interface IListInput<T> {
@@ -49,15 +49,23 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
         }));
   }
 
-  // private getItemForCreate(): T {
-  //   const cleanedItem: T = cloneDeep(this.items[0]);
-  //   // eslint-disable-next-line guard-for-in,no-restricted-syntax
-  //   // for (const key in cleanedItem) {
-  //   //   const item: ABaseInput = cleanedItem[key];
-  //   //   if (item) {
-  //   //     item.resetValue();
-  //   //   }
-  //   // }
-  //   return this.defaultItem || cleanedItem;
-  // }
+  resetValue() {
+    this.items
+      .flat()
+      .forEach((row) => {
+        forOwn(row, (item) => {
+          item.resetValue();
+        });
+      });
+  }
+
+  private getItemForCreate(): T {
+    const cleanedItem: T = cloneDeep(this.items[0]);
+
+    forOwn(cleanedItem, (item: ABaseInput) => {
+      item.resetValue();
+    });
+
+    return this.defaultItem || cleanedItem;
+  }
 }
