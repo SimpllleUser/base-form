@@ -1,6 +1,6 @@
+import { isBoolean, isString } from 'lodash';
 import type { ValidationRule, ValidationFunction } from '../../../../../shared/lib/input-validator/types';
 import { rules } from '../../../../../shared/lib/input-validator/rules';
-import { isBoolean, isString } from '../../../../../shared/lib/utils';
 
 export class InputValidator<T> {
   private readonly validationRules?: Array<ValidationRule | string> = [];

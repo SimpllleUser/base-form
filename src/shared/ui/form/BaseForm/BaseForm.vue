@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import { ref } from 'vue';
 import { useForm } from '../../../../shared/ui/form/composables';
 import input from '../../../../shared/ui/form/inputs/base';
 import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
@@ -68,6 +69,8 @@ const {
   form, validate, resetForm, clearForm,
 } = useForm<FormConfig>(formConfig);
 
+const isShownDataSource = ref(false);
+
 </script>
 
 <template>
@@ -77,15 +80,15 @@ const {
      <div>
        <button @click="clearForm">Clear form</button> |
        <button @click="resetForm">Reset form</button> |
+       <button @click="isShownDataSource = !isShownDataSource">Show form source</button> |
      </div>
    </div>
     <hr>
-    <pre v-if="false">
+    <pre v-if="isShownDataSource">
       {{ form }}
     </pre>
   </div>
   <div>
-    {{ form.header.title }}
     <BaseInput v-model="form.header.title" />
     <ListInput v-model="form.list" />
   </div>
@@ -93,7 +96,3 @@ const {
     <button @click="validate">Validate</button>
   </div>
 </template>
-
-<style scoped lang="scss">
-
-</style>

@@ -33,7 +33,8 @@ const onInput = (event: Event) => {
   <component :is="input.component" :value="input.value" :type="input.type" @input="onInput" />
   <br>
   <small style="font-size: 12px">{{ input.hint }}</small>
-  errors: {{ input.getErrors() }}
+  errors: {{ input.getErrors() }} |
+  is valid: {{ input.isValid() }}
 </template>
 
 <style scoped lang="scss">
