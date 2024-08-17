@@ -7,7 +7,7 @@ const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(p
 const list = <T extends Record<string, ABaseInput>>(
   items: Array<T>,
   defaultItem: T,
-): ListInput<T> => new ListInput<T>(items, defaultItem);
+): ListInput<T> => new ListInput<T>(items, defaultItem as T);
 const input = {
   text,
   list,

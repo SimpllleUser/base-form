@@ -27,10 +27,10 @@ export class InputValidator<T> {
       .every(isBoolean);
   }
 
-  getErrors(value: T): Array<string> {
+  getErrors(value: T): string {
     return this.validationRules
       ?.map(this.getRuleValidation.bind(this))
-      .map(validationFunction => validationFunction(value))
-      .filter(isString) as Array<string>;
+      ?.map(validationFunction => validationFunction(value))
+      ?.filter(isString)[0] || '';
   }
 }

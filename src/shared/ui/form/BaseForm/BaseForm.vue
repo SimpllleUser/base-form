@@ -1,16 +1,16 @@
 <script setup lang="ts">
-
 import { ref } from 'vue';
+import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import { useForm } from '../../../../shared/ui/form/composables';
-import input from '../../../../shared/ui/form/inputs/base';
 import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
 import { ValidationRule } from '../../../../shared/lib/input-validator/types';
-import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import ListInput from '../../inputs/base/ListInput.vue';
-import BaseInput from '@/shared/ui/inputs/base/BaseInput.vue';
+import BaseInput from '../../inputs/base/BaseInput.vue';
+import input from '../../../../shared/ui/form/inputs/base';
 
 interface IListItem {
-  text: TextInput, description: TextInput
+  text: TextInput;
+  description: TextInput;
 }
 interface FormConfig { header: { title: TextInput; }; list: IListInput<IListItem>}
 

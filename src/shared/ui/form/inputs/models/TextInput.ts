@@ -29,8 +29,8 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
      return this.inputValidator.isValid(this.getValue());
    }
 
-   getErrors(): Array<string> {
-     if (!this.allowValidate) return [];
+   getErrors(): string {
+     if (!this.allowValidate) return '';
      return this.inputValidator.getErrors(this.getValue());
    }
 }
