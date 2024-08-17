@@ -19,7 +19,7 @@ export class InputValidator<T> {
   }
 
   isValid(value: T): boolean {
-    if (!this.validationRules) return true;
+    if (!this.validationRules?.length) return true;
 
     return this.validationRules
       .map(this.getRuleValidation.bind(this))
