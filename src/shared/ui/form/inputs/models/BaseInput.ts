@@ -12,6 +12,8 @@ export interface BaseInputConfig<T> {
 }
 
 export abstract class ABaseInput {
+   component: string | unknown = 'input';
+
   value?: string = DEFAULT_PARAMS_INPUT.value;
 
   hint?: string = DEFAULT_PARAMS_INPUT.hint;
@@ -43,5 +45,9 @@ export abstract class ABaseInput {
 
   resetValue() {
     this.value = '';
+  }
+
+  setComponent(component: string | unknown) {
+    this.component = component;
   }
 }
