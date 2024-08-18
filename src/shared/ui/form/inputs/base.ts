@@ -6,20 +6,14 @@ import { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
 
 import BaseInputText from '@/shared/ui/inputs/base/BaseInputText.vue';
 
-const text = (params: Partial<InputPrams<string>>): TextInput => new TextInput(params).setComponent(BaseInputText);
-export const list = <T extends Record<string, ABaseInput>>(
-  items: Array<T>,
-  defaultItem: T,
-): ListInput<T> => new ListInput<T>(items, defaultItem as T);
-
 type InputDataItem = Record<string, CallableFunction>
 
-class InputConfigurator {
-  private static instance: InputConfigurator
+class InputConfigurator<T> {
+  private static instance: InputConfigurator<any>
 
-   private readonly inputs!: Record<string, CallableFunction>
+   private readonly inputs!: T
 
-   constructor(inputs: Record<string, CallableFunction>) {
+   constructor(inputs: T) {
      if (InputConfigurator.instance) {
        return;
      }
@@ -38,7 +32,20 @@ class InputConfigurator {
    }
 }
 
-const input = new InputConfigurator({ text, list });
+interface InputsOfConfig {
+  text: (params?: Partial<InputPrams<string>>) => TextInput
+  list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
+}
+
+const list: InputsOfConfig = {
+  text: (params) => new TextInput(params).setComponent(BaseInputText),
+  list: (
+    items,
+    defaultItem,
+  ) => new ListInput(items, defaultItem),
+};
+
+const input = new InputConfigurator<InputsOfConfig>(list);
 
 export const { addInput } = input;
 

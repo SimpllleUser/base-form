@@ -3,10 +3,9 @@ import { ref } from 'vue';
 import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
 import { useForm } from '../../../../shared/ui/form/composables';
 import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
-import { ValidationRule } from '../../../../shared/lib/input-validator/types';
 import ListInput from '../../inputs/base/ListInput.vue';
 import BaseInput from '../../inputs/base/BaseInput.vue';
-import input from '../../../../shared/ui/form/inputs/base';
+import { TestForm } from '@/shared/ui/form/BaseForm/config';
 
 interface IListItem {
   text: TextInput;
@@ -14,60 +13,11 @@ interface IListItem {
 }
 interface FormConfig { header: { title: TextInput; }; list: IListInput<IListItem>}
 
-const getInputRowDefault = (): IListItem => ({
-  text: input.text({
-    value: '',
-    label: 'Label',
-    hint: 'Hint',
-    rules: [`${ValidationRule.Length}: 5`],
-  }),
-  description: input.text({
-    value: '',
-    label: 'Label description',
-    hint: 'Hint description',
-    rules: [`${ValidationRule.Length}: 5`],
-  }),
-});
-
-const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
-  {
-    text: input.text({
-      value: 'Some text',
-      label: 'Label',
-      hint: 'Hint',
-      rules: [`${ValidationRule.Length}: 5`],
-    }),
-    description: input.text({
-      value: 'Some text description',
-      label: 'Label description',
-      hint: 'Hint description',
-      rules: [`${ValidationRule.Length}: 5`],
-    }),
-  },
-  {
-    text: input.text({
-      value: 'Some text',
-      label: 'Label',
-      hint: 'Hint',
-      rules: [`${ValidationRule.Length}: 5`],
-    }),
-    description: input.text({
-      value: 'Some text description',
-      label: 'Label description',
-      hint: 'Hint description',
-      rules: [`${ValidationRule.Length}: 5`],
-    }),
-  },
-];
-
-const formConfig: { title: TextInput, list: IListInput<IListItem> } = {
-  header: { title: input.text({ value: 'title 1', rules: [`${ValidationRule.Length}: 5`] }) },
-  list: input.list(ITEMS_LIST, getInputRowDefault()),
-};
+const formConfig = new TestForm();
 
 const {
   form, validate, resetForm, clearForm,
-} = useForm<FormConfig>(formConfig);
+} = useForm<TestForm>(formConfig);
 
 const isShownDataSource = ref(false);
 

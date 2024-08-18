@@ -24,7 +24,7 @@ export abstract class ABaseInput {
 
   allowValidate = false
 
-  protected constructor(data: Partial<InputPrams<string>>) {
+  protected constructor(data: Partial<InputPrams<string>> = DEFAULT_PARAMS_INPUT) {
     this.value = data.value;
     this.hint = data.hint;
     this.label = data.label;

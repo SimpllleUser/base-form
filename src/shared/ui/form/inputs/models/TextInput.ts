@@ -11,7 +11,7 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
 
    allowValidate = false
 
-   constructor(data: Partial<InputPrams<string>>) {
+   constructor(data?: Partial<InputPrams<string>>) {
      super(data);
      this.inputValidator = new InputValidator(this.rules);
    }
