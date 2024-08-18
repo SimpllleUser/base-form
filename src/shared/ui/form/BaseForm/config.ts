@@ -1,4 +1,4 @@
-import input from '../../../../shared/ui/inputs/base';
+import input from '../../inputs/models/InputConfigurator';
 import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
 import { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
 import { ValidationRule } from '../../../../shared/lib/input-validator/types';

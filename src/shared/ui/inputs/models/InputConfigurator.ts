@@ -1,9 +1,9 @@
 import { forOwn } from 'lodash';
-import type { InputPrams } from '../../../shared/ui/form/composables/types';
-import { TextInput, ListInput } from '../../../shared/ui/inputs/models';
-import { ABaseInput } from '../../../shared/ui/inputs/models/BaseInput';
+import type { InputPrams } from '../../form/composables';
+import { TextInput, ListInput } from '.';
+import { ABaseInput } from './BaseInput';
 
-import BaseInputText from '@/shared/ui/inputs/base/BaseInputText.vue';
+import BaseInputText from '../components/BaseInput.vue';
 
 type InputDataItem = Record<string, CallableFunction>
 

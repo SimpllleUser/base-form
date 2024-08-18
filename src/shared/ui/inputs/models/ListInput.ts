@@ -1,5 +1,5 @@
 import { cloneDeep, forOwn } from 'lodash';
-import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import type { ABaseInput } from './BaseInput';
 
 export interface IListInput<T> {
   items: Array<T>;
