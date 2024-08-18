@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { cloneDeep, forOwn } from 'lodash';
-import type { ABaseInput } from '../../../../../shared/ui/form/inputs/models/BaseInput';
+import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
 
 export interface IListInput<T> {
   items: Array<T>;

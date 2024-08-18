@@ -3,8 +3,8 @@ import {
 } from 'vue';
 import { cloneDeep, forOwn } from 'lodash';
 import type { DefaultFormConfig } from '../../../../shared/ui/form/composables/types';
-import { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
-import { ListInput } from '../inputs/models/ListInput';
+import { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
 
 const isActualInstance = (item: unknown): boolean => item instanceof ABaseInput || item instanceof ListInput;
 const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) => {

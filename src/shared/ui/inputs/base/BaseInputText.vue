@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 
 import { computed, defineProps, defineEmits } from 'vue';
-import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
-import type { ABaseInput } from '../../../../shared/ui/form/inputs/models/BaseInput';
+import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
+import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
 
 interface Props {
   modelValue: TextInput

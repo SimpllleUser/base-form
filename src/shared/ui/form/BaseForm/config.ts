@@ -1,7 +1,7 @@
-import input from '../../../../shared/ui/form/inputs/base';
-import { TextInput } from '@/shared/ui/form/inputs/models/TextInput';
-import { ListInput } from '@/shared/ui/form/inputs/models/ListInput';
-import { ValidationRule } from '@/shared/lib/input-validator/types';
+import input from '../../../../shared/ui/inputs/base';
+import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
+import { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
+import { ValidationRule } from '../../../../shared/lib/input-validator/types';
 
 type FieldsOfRecord = 'text' | 'description'
 

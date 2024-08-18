@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { type IListInput } from '../../../../shared/ui/form/inputs/models/ListInput';
+import { type IListInput } from '../../../../shared/ui/inputs/models/ListInput';
 import { useForm } from '../../../../shared/ui/form/composables';
-import { TextInput } from '../../../../shared/ui/form/inputs/models/TextInput';
+import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
 import ListInput from '../../inputs/base/ListInput.vue';
 import BaseInput from '../../inputs/base/BaseInput.vue';
 import { TestForm } from '@/shared/ui/form/BaseForm/config';

@@ -1,5 +1,5 @@
 import { ABaseInput, type BaseInputConfig } from './BaseInput';
-import type { InputPrams } from '../../composables/types';
+import type { InputPrams } from '../../../ui/form/composables';
 import { InputValidator } from './InputValidator';
 
 export class TextInput extends ABaseInput implements BaseInputConfig<string> {

@@ -1,8 +1,7 @@
 import { forOwn } from 'lodash';
-import type { InputPrams } from '../../../../shared/ui/form';
-import { TextInput } from '../../../ui/form/inputs/models/TextInput';
-import { ListInput } from '../../../ui/form/inputs/models/ListInput';
-import { ABaseInput } from '@/shared/ui/form/inputs/models/BaseInput';
+import type { InputPrams } from '../../../shared/ui/form/composables/types';
+import { TextInput, ListInput } from '../../../shared/ui/inputs/models';
+import { ABaseInput } from '../../../shared/ui/inputs/models/BaseInput';
 
 import BaseInputText from '@/shared/ui/inputs/base/BaseInputText.vue';
 
