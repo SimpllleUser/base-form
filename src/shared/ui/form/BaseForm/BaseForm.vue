@@ -3,8 +3,8 @@ import { ref } from 'vue';
 import { type IListInput } from '../../../../shared/ui/inputs/models/ListInput';
 import { useForm } from '../../../../shared/ui/form/composables';
 import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
-import ListInput from '../../inputs/base/ListInput.vue';
-import BaseInput from '../../inputs/base/BaseInput.vue';
+// import { ListInput } from '../../inputs/components/ListInput.vue';
+// import BaseInput from '../../inputs/components/BaseInput.vue';
 import { TestForm } from '@/shared/ui/form/BaseForm/config';
 
 interface IListItem {
@@ -40,7 +40,7 @@ const isShownDataSource = ref(false);
   </div>
   <div>
     <BaseInput v-model="form.header.title" />
-    <ListInput v-model="form.list" />
+<!--    <ListInput v-model="form.list" />-->
   </div>
   <div>
     <button @click="validate">Validate</button>
