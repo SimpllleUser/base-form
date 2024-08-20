@@ -1,9 +1,11 @@
+import { markRaw } from 'vue';
 import { ABaseInput, type BaseInputConfig } from './BaseInput';
 import type { InputPrams } from '../../form/composables';
 import { InputValidator } from '../../../lib/input-validator';
+import BaseInputText from '../components/BaseInputText.vue';
 
 export class TextInput extends ABaseInput implements BaseInputConfig<string> {
-   component: unknown = 'input';
+   component: unknown = markRaw(BaseInputText);
 
   type = 'text';
 
@@ -34,8 +36,8 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
      return this.inputValidator.getErrors(this.getValue());
    }
 
-   setComponent(component: string | unknown): TextInput {
-     this.component = component;
+   setComponent(component: object): TextInput {
+     this.component = markRaw(component);
      return this;
    }
 }

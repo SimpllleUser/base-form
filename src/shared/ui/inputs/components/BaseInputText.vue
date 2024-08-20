@@ -29,7 +29,7 @@ const onInput = (event: Event) => {
 <template>
   <label class="label"> {{ input.label }} </label>
   <br>
-  <input v-mode="input.value"  :value="input.value" :type="input.type" @input="onInput"  />
+  <input v-model="input.value"  :value="input.value" :type="input.type" @input="onInput"  />
   <br>
   <span class="hint">{{ input.hint }}</span>
   <br>

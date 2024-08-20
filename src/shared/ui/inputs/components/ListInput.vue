@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import { BaseInput } from '../../../../shared/ui/inputs/base/index';
+import { BaseInput } from '../../../../shared/ui/inputs/components';
 import type { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
 import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
 

@@ -3,8 +3,6 @@ import type { InputPrams } from '../../form/composables';
 import { TextInput, ListInput } from '.';
 import { ABaseInput } from './BaseInput';
 
-import BaseInputText from '../components/BaseInput.vue';
-
 type InputDataItem = Record<string, CallableFunction>
 
 class InputConfigurator<T> {
@@ -37,7 +35,7 @@ interface InputsOfConfig {
 }
 
 const list: InputsOfConfig = {
-  text: (params) => new TextInput(params).setComponent(BaseInputText),
+  text: (params) => new TextInput(params),
   list: (
     items,
     defaultItem,
