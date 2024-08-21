@@ -9,8 +9,6 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
 
   type = 'text';
 
-  inputValidator: InputValidator<string>
-
    allowValidate = false
 
    constructor(data?: Partial<InputPrams<string>>) {

@@ -22,13 +22,16 @@ export abstract class ABaseInput {
 
   rules?: Array<ValidationRule | string> = DEFAULT_PARAMS_INPUT.rules;
 
+  inputValidator: InputValidator<unknown>
+
   allowValidate = false
 
-  protected constructor(data: Partial<InputPrams<string>> = DEFAULT_PARAMS_INPUT) {
+  protected constructor(data: Partial<InputPrams<string>> & { key: string } = DEFAULT_PARAMS_INPUT) {
     this.value = data.value;
     this.hint = data.hint;
     this.label = data.label;
     this.rules = data.rules;
+    this.inputValidator = new InputValidator(this.rules);
   }
 
   getValue(): void {
@@ -36,7 +39,8 @@ export abstract class ABaseInput {
   }
 
   isValid(): boolean {
-    return true;
+    if (!this.allowValidate) return true;
+    return this.inputValidator.isValid(this.getValue());
   }
 
   set canValidate(value: boolean) {

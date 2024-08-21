@@ -1,5 +1,5 @@
-import { ValidationRule } from '../../../../shared/lib/input-validator/types';
-import { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import { ValidationRule } from '../../../lib/input-validator/types';
+import { ABaseInput } from '../../inputs/models/BaseInput';
 
 export interface InputPrams<T = string> {
     value: T;

@@ -2,9 +2,9 @@ import {
   ref, type Ref, unref,
 } from 'vue';
 import { cloneDeep, forOwn } from 'lodash';
-import type { DefaultFormConfig } from '../../../../shared/ui/form/composables/types';
-import { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
-import { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
+import type { DefaultFormConfig } from './types';
+import { ABaseInput } from '../../inputs/models/BaseInput';
+import { ListInput } from '../../inputs/models/ListInput';
 
 const isActualInstance = (item: unknown): boolean => item instanceof ABaseInput || item instanceof ListInput;
 const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) => {
@@ -18,12 +18,16 @@ const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) 
   }
 };
 
-export function useForm<T extends DefaultFormConfig>(config: T): {
+export interface IUseForm<T> {
   form: Ref<T>,
   validate: CallableFunction,
   resetForm: CallableFunction,
   clearForm: CallableFunction,
-} {
+  // submitForm: CallableFunction,
+  // isValid: () => unknown
+}
+
+export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
   const defaultValue = cloneDeep(config);
   const form = ref(config) as Ref<T>;
 

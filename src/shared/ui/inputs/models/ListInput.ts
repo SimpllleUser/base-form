@@ -1,5 +1,6 @@
 import { cloneDeep, forOwn } from 'lodash';
 import type { ABaseInput } from './BaseInput';
+import { BaseInput } from '@/shared/ui/inputs';
 
 export interface IListInput<T> {
   items: Array<T>;
@@ -16,54 +17,58 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
 
   allowValidate = false;
 
-  defaultItem: T;
+ private readonly defaultItem: T;
 
-  constructor(data: Array<T>, defaultItem: T) {
-    this.items = data;
-    this.defaultItem = defaultItem;
-  }
+ constructor(data: Array<T>, defaultItem: T) {
+   this.items = data;
+   this.defaultItem = defaultItem;
+ }
 
-  add(): void {
-    this.items.push(cloneDeep(this.defaultItem));
-  }
+ add(): void {
+   const item = Object.assign(cloneDeep(this.defaultItem), { key: this.items.length });
+   forOwn(item, (value: ABaseInput) => {
+     if (value.key) value.key = `item-${this.items.length}`;
+   });
+   this.items.push(item);
+ }
 
-  remove(item: T): void {
-    this.items.splice(this.items.indexOf(item), 1);
-  }
+ remove(item: T): void {
+   this.items.splice(this.items.indexOf(item), 1);
+ }
 
-  isValid(): boolean {
-    return this.items
-      .map(item => Object.values(item)
-        .every((input) => input.isValid()))
-      .every(Boolean);
-  }
+ isValid(): boolean {
+   return this.items
+     ?.map(item => Object.values(item)
+       .every((input) => input?.isValid && input?.isValid()))
+     .every(Boolean);
+ }
 
-  set canValidate(value: boolean) {
-    this.allowValidate = value;
-    this.items
-      .forEach(item => Object.values(item)
-        .forEach((input) => {
-          (input as ABaseInput).canValidate = value;
-        }));
-  }
+ set canValidate(value: boolean) {
+   this.allowValidate = value;
+   this.items
+     .forEach(item => Object.values(item)
+       .forEach((input) => {
+         (input as ABaseInput).canValidate = value;
+       }));
+ }
 
-  resetValue() {
-    this.items
-      .flat()
-      .forEach((row) => {
-        forOwn(row, (item) => {
-          item.resetValue();
-        });
-      });
-  }
+ resetValue() {
+   this.items
+     .flat()
+     .forEach((row) => {
+       forOwn(row, (item) => {
+         item.resetValue();
+       });
+     });
+ }
 
-  private getItemForCreate(): T {
-    const cleanedItem: T = cloneDeep(this.items[0]);
+ private getItemForCreate(): T {
+   const cleanedItem: T = cloneDeep(this.items[0]);
 
-    forOwn(cleanedItem, (item: ABaseInput) => {
-      item.resetValue();
-    });
+   forOwn(cleanedItem, (item: ABaseInput) => {
+     item.resetValue();
+   });
 
-    return this.defaultItem || cleanedItem;
-  }
+   return this.defaultItem || cleanedItem;
+ }
 }

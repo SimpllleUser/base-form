@@ -1,7 +1,7 @@
 import input from '../../inputs/models/InputConfigurator';
-import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
-import { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
-import { ValidationRule } from '../../../../shared/lib/input-validator/types';
+import { TextInput } from '../../inputs/models/TextInput';
+import { ListInput } from '../../inputs/models/ListInput';
+import { ValidationRule } from '../../../lib/input-validator/types';
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -52,6 +52,19 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
     }),
   },
 ];
+
+interface ITestFormData {
+  header: string;
+  list: IListItem[];
+}
+
+interface IForm {
+  header: {
+    title: TextInput;
+  };
+  list: ListInput<IListItem>;
+}
+
 export class TestForm {
   header: {
     title: TextInput
@@ -59,7 +72,7 @@ export class TestForm {
 
   list: ListInput<IListItem>
 
-  constructor() {
+  constructor(data?: ITestFormData) {
     this.header.title = input.text();
     this.list = input.list(ITEMS_LIST, getInputRowDefault());
   }

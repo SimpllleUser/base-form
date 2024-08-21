@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import { BaseInput } from '../../../../shared/ui/inputs/components';
-import type { ListInput } from '../../../../shared/ui/inputs/models/ListInput';
-import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import { BaseInput } from '.';
+import type { ListInput } from '../models/ListInput';
+import type { ABaseInput } from '../models/BaseInput';
 
   interface Props {
     modelValue: ListInput<ABaseInput>
@@ -23,7 +23,7 @@ const listData = computed({
 
 <template>
   <div>
-    <button @click="listData.add()">Add</button>
+    <button @click="listData.add">Add</button>
   </div>
   <div v-for="(inputsRow, rowIndex) in listData.items" :key="rowIndex" style="display: flex; justify-content: space-between">
     <div v-for="(key, index) in Object.keys(inputsRow)" :key="index" class="flex items-center">
