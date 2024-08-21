@@ -18,13 +18,20 @@ const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) 
   }
 };
 
+const getStateMethodOfItemForm = (item: unknown, methodName: string, callback: CallableFunction) => {
+  forOwn(item, (item: ABaseInput) => {
+    if (item[methodName]) callback(item[methodName]());
+    else getStateMethodOfItemForm(item, methodName, callback);
+  });
+};
+
 export interface IUseForm<T> {
   form: Ref<T>,
   validate: CallableFunction,
   resetForm: CallableFunction,
   clearForm: CallableFunction,
-  // submitForm: CallableFunction,
-  // isValid: () => unknown
+  submitForm: CallableFunction,
+  isValid: () => boolean
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
@@ -65,10 +72,24 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     setStateValidation(false);
   };
 
+  const isValid = () => {
+    const states: Array<boolean> = [];
+    getStateMethodOfItemForm(form.value, 'isValid', (state: boolean) => {
+      states.push(state);
+    });
+    return states.every(Boolean);
+  };
+
+  const submitForm = () => {
+    validate();
+  };
+
   return {
     form,
     validate,
     clearForm,
     resetForm,
+    submitForm,
+    isValid,
   };
 }

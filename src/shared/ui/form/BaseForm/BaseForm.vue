@@ -6,13 +6,13 @@ interface Props {
   config: unknown;
 }
 const props = defineProps<Props>();
-const { form, submitForm } = useForm(props.config);
+const { form, submitForm, isValid } = useForm(props.config);
 
 </script>
 
 <template>
   <div>
-    <h1>Base form</h1>
+    <h1>Base form: {{ isValid() }}</h1>
     <slot :form="form"/>
   </div>
   <div class="actions">
