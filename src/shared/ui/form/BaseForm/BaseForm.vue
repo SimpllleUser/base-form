@@ -2,8 +2,11 @@
 import { defineProps, onMounted } from 'vue';
 import { useForm } from '..';
 
+type ActionForm = 'Update' | 'Create'
+
 interface Props {
   config: unknown;
+  params: { action: ActionForm };
 }
 const props = defineProps<Props>();
 const {
@@ -17,10 +20,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1>Base form: {{ isValid }}</h1>
+    <h1>Base form</h1>
     <slot :form="form"/>
   </div>
   <div class="actions">
-    <button @click="submitForm">Submit</button>
+    <button @click="isValid && submitForm">Submit</button>
   </div>
 </template>
