@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, onMounted } from 'vue';
 import { useForm } from '..';
 
 interface Props {
   config: unknown;
 }
 const props = defineProps<Props>();
-const { form, submitForm, isValid } = useForm(props.config);
+const {
+  form, submitForm, isValid, resetForm,
+} = useForm(props.config);
 
+onMounted(() => {
+  resetForm();
+});
 </script>
 
 <template>
