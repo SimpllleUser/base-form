@@ -5,7 +5,7 @@ import { cloneDeep, forOwn } from 'lodash';
 import type { DefaultFormConfig } from './types';
 import { ABaseInput, BaseInputConfig } from '../../inputs/models/BaseInput';
 import { ListInput } from '../../inputs/models/ListInput';
-import { ActionForm, FormParams } from '@/shared/ui/form/BaseForm/types';
+import { ActionForm, FormParams } from '../../form/BaseForm';
 
 const isActualInstance = (item: unknown): boolean => item instanceof ABaseInput || item instanceof ListInput;
 const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) => {
