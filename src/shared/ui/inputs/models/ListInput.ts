@@ -1,4 +1,4 @@
-import { cloneDeep, forOwn } from 'lodash';
+import { cloneDeep, forOwn, has } from 'lodash';
 import type { ABaseInput } from './BaseInput';
 import { BaseInput } from '@/shared/ui/inputs';
 
@@ -26,9 +26,6 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
 
  add(): void {
    const item = Object.assign(cloneDeep(this.defaultItem), { key: this.items.length });
-   forOwn(item, (value: ABaseInput) => {
-     if (value.key) value.key = `item-${this.items.length}`;
-   });
    this.items.push(item);
  }
 
@@ -39,8 +36,8 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
  isValid(): boolean {
    return this.items
      ?.map(item => Object.values(item)
-       .every((input) => input?.isValid && input?.isValid()))
-     .every(Boolean);
+       ?.every((input) => input?.isValid && input?.isValid()))
+     ?.every(Boolean) || false;
  }
 
  set canValidate(value: boolean) {

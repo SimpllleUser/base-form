@@ -12,7 +12,7 @@ const { form, submitForm, isValid } = useForm(props.config);
 
 <template>
   <div>
-    <h1>Base form: {{ isValid() }}</h1>
+    <h1>Base form: {{ isValid }}</h1>
     <slot :form="form"/>
   </div>
   <div class="actions">
