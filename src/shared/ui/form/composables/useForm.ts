@@ -1,11 +1,11 @@
 import {
-  computed, ComputedRef,
-  ref, type Ref, unref,
+  computed, ComputedRef, ref, type Ref, unref,
 } from 'vue';
 import { cloneDeep, forOwn } from 'lodash';
 import type { DefaultFormConfig } from './types';
 import { ABaseInput, BaseInputConfig } from '../../inputs/models/BaseInput';
 import { ListInput } from '../../inputs/models/ListInput';
+import { ActionForm, FormParams } from '@/shared/ui/form/BaseForm/types';
 
 const isActualInstance = (item: unknown): boolean => item instanceof ABaseInput || item instanceof ListInput;
 const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) => {
@@ -45,6 +45,7 @@ export interface IUseForm<T> {
   clearForm: CallableFunction,
   submitForm: CallableFunction,
   isValid: ComputedRef<boolean>
+  getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean })
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
@@ -93,9 +94,22 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     return states.every(Boolean);
   });
 
-  const submitForm = () => {
+  const submitForm = (callback: (stateForm: boolean) => void) => {
     validate();
+    callback(isValid.value);
   };
+
+  const getAction = (params: FormParams): ActionForm => {
+    if (params?.action) return params.action;
+    return ActionForm.None;
+  };
+
+  const isActionNone = (params: FormParams): boolean => getAction(params) === ActionForm.None;
+
+  const getActionStates = (params: FormParams) => ({
+    isActionNone: isActionNone(params),
+    action: getAction(params),
+  });
 
   return {
     form,
@@ -103,6 +117,7 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     clearForm,
     resetForm,
     submitForm,
+    getActionStates,
     isValid,
   };
 }

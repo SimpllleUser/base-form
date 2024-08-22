@@ -1,28 +1,24 @@
 <script setup lang="ts">
-import { useForm } from '../shared/ui/form';
-import { TestForm } from '../shared/ui/form/BaseForm/config';
-import { IListInput, TextInput } from '../shared/ui/inputs/models';
 import { BaseInput, ListInput } from '../shared/ui/inputs';
-import { BaseForm } from '../shared/ui/form/BaseForm';
-
-interface IListItem {
-  text: TextInput;
-  description: TextInput;
-}
-interface FormConfig { header: { title: TextInput; }; list: IListInput<IListItem>}
+import {
+  TestForm, BaseForm, ActionForm, OnSubmitParams,
+} from '../shared/ui/form/BaseForm';
 
 const formConfig = new TestForm();
 
-const {
-  form, validate, resetForm, clearForm,
-} = useForm<TestForm>(formConfig);
+const onSubmit = (params: OnSubmitParams) => {
+  console.log(params);
+};
 
 </script>
 
 <template>
   <main>
     <div>
-      <BaseForm :config="formConfig">
+      <BaseForm
+        :config="formConfig"
+        @on-submit="onSubmit"
+      >
         <template #default="{form}: { form: TestForm }">
           <BaseInput v-model="form.header.title" />
           <ListInput v-model="form.list" />
