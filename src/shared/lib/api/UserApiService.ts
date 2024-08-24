@@ -6,6 +6,7 @@ export class UserApiService {
   private apiService: DefaultApiService
 
   constructor(url = '') {
+    /// Також можна додати класс обгортку який будет робити кешування запитів
     this.apiService = new DefaultApiService(new AxiosService(url));
   }
 
