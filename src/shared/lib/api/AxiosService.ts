@@ -1,12 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export interface IFetchServiceActions {
+export interface IAxiosFetchServiceActions {
   get<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
   post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>;
   put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T>;
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
 }
-class FetchService implements IFetchServiceActions {
+class AxiosService implements IAxiosFetchServiceActions {
   private axiosInstance: AxiosInstance;
 
   constructor(baseURL: string) {
@@ -57,4 +57,4 @@ class FetchService implements IFetchServiceActions {
   }
 }
 
-export default FetchService;
+export default AxiosService;

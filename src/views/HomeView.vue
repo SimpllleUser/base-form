@@ -5,7 +5,7 @@ import {
   BaseForm, OnSubmitParams,
 } from '../shared/ui/form/BaseForm';
 import { TestForm } from './config';
-import { apiServices } from '@/shared/lib/api/config';
+import { UserApiService } from '@/shared/lib/api/UserApiService';
 
 const formConfig = new TestForm();
 
@@ -14,7 +14,8 @@ const onSubmit = (params: OnSubmitParams) => {
 };
 
 onMounted(async () => {
-  const data = await apiServices.userService().fetchService.get('/');
+  const userService = new UserApiService('https://jsonplaceholder.typicode.com/users');
+  const { data } = await userService.getUsers();
   console.log(data);
 });
 
