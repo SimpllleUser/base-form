@@ -46,6 +46,8 @@ export interface IUseForm<T> {
   submitForm: CallableFunction,
   isValid: ComputedRef<boolean>
   getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean })
+  getAction: (params: FormParams) => ActionForm
+  isActionNone: (params: FormParams) => boolean
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
@@ -118,6 +120,8 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     resetForm,
     submitForm,
     getActionStates,
+    getAction,
+    isActionNone,
     isValid,
   };
 }

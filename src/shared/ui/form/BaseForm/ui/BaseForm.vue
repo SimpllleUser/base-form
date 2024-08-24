@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, onMounted } from 'vue';
+import {
+  defineProps, defineEmits, onMounted, computed, withDefaults,
+} from 'vue';
 import { useForm } from '../../index';
 import { ActionForm } from '@/shared/ui/form/BaseForm/types';
 
@@ -16,7 +18,7 @@ const emit = defineEmits<Emits>();
 
 const props = defineProps<Props>();
 const {
-  form, submitForm, resetForm, getActionStates,
+  form, submitForm, resetForm, getActionStates, getAction, isActionNone,
 } = useForm(props.config);
 
 const onSubmit = (isValid: boolean): void => {
@@ -29,6 +31,9 @@ const onSubmit = (isValid: boolean): void => {
 onMounted(() => {
   resetForm();
 });
+
+const submitButtonLabel = computed(() => getAction(props?.params));
+const showButtonAction = computed(() => !isActionNone(props.params));
 </script>
 
 <template>
@@ -37,6 +42,10 @@ onMounted(() => {
     <slot :form="form"/>
   </div>
   <div class="actions">
-    <button @click="submitForm(onSubmit)">Submit</button>
+    <slot name="actions" >
+      <button
+        v-if="showButtonAction"
+        @click="submitForm(onSubmit)">{{ submitButtonLabel }}</button>
+    </slot>
   </div>
 </template>
