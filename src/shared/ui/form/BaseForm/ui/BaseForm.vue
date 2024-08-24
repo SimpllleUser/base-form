@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  defineProps, defineEmits, onMounted, computed, withDefaults,
+  defineProps, defineEmits, onMounted, computed,
 } from 'vue';
 import { useForm } from '../../index';
 import { ActionForm } from '@/shared/ui/form/BaseForm/types';
@@ -32,8 +32,8 @@ onMounted(() => {
   resetForm();
 });
 
-const submitButtonLabel = computed(() => getAction(props?.params));
-const showButtonAction = computed(() => !isActionNone(props.params));
+const submitButtonLabel = computed(() => getAction(props?.params || {}));
+const showButtonAction = computed(() => !isActionNone(props?.params || {}));
 </script>
 
 <template>
