@@ -67,7 +67,10 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
        .fromEntries(Object
          .entries(inputRow)
          .map(
-           ([key, item]) => [key, item?.getValue()],
+           ([key, item]) => {
+             if (has(item, 'allowValidate')) return [key, item?.getValue()];
+             return [key, item];
+           },
          )));
  }
 

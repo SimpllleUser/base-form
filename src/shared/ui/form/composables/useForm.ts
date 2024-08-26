@@ -48,6 +48,7 @@ export interface IUseForm<T> {
   getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean })
   getAction: (params: FormParams) => ActionForm
   isActionNone: (params: FormParams) => boolean
+  getValue: <T extends Record<string, unknown>> () => T
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
@@ -113,6 +114,11 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     action: getAction(params),
   });
 
+  const getValue = <T extends object>(): T => Object
+    .fromEntries(Object
+      .entries(form.value)
+      .map(([key, input]) => [key, input.getValue()])) as T;
+
   return {
     form,
     validate,
@@ -122,6 +128,7 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     getActionStates,
     getAction,
     isActionNone,
+    getValue,
     isValid,
   };
 }
