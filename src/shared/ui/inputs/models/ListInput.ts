@@ -1,6 +1,5 @@
 import { cloneDeep, forOwn, has } from 'lodash';
 import type { ABaseInput } from './BaseInput';
-import { BaseInput } from '@/shared/ui/inputs';
 
 export interface IListInput<T> {
   items: Array<T>;
@@ -60,6 +59,16 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
          item.resetValue();
        });
      });
+ }
+
+ getValue() {
+   return this.items
+     .map((inputRow) => Object
+       .fromEntries(Object
+         .entries(inputRow)
+         .map(
+           ([key, item]) => [key, item?.getValue()],
+         )));
  }
 
  private getItemForCreate(): T {
