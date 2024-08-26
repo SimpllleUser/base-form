@@ -53,19 +53,17 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
   },
 ];
 
-interface ITestFormData {
+export interface ITestFormData {
   header: string;
   list: IListItem[];
 }
 
 interface IForm {
-  header: {
-    title: TextInput;
-  };
+  header: TextInput;
   list: ListInput<IListItem>;
 }
 
-export class TestForm {
+export class TestForm implements IForm {
   header: TextInput
 
   list: ListInput<IListItem>

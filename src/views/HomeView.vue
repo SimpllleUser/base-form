@@ -3,12 +3,13 @@ import { ref } from 'vue';
 import { BaseInput, ListInput } from '../shared/ui/inputs';
 import {
   ActionForm,
-  BaseForm, OnSubmitParams,
+  BaseForm,
+  OnSubmitPayload,
 } from '../shared/ui/form/BaseForm';
-import { TestForm } from './config';
+import { ITestFormData, TestForm } from './config';
 
-const onSubmit = (params: OnSubmitParams) => {
-  console.log(params);
+const onSubmit = (params: OnSubmitPayload<ITestFormData>) => {
+  console.log(params.value);
 };
 
 const data = ref({ header: '', list: [] });

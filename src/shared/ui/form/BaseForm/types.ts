@@ -3,11 +3,8 @@ export enum ActionForm {
   Create = 'Create',
   None = 'None',
 }
-export interface OnSubmitParams {
-  isValid: boolean;
-  action?: ActionForm
-}
-
 export interface FormParams {
   action?: ActionForm
 }
+
+export type OnSubmitPayload<T = unknown> = { value: T, isValid: boolean, action: ActionForm, isActionNone: boolean }

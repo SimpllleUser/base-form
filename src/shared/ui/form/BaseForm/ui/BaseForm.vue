@@ -2,7 +2,7 @@
 import {
   defineProps, defineEmits, onMounted, computed, ref, watch,
 } from 'vue';
-import { useForm } from '../../index';
+import { OnSubmitPayload, useForm } from '../../index';
 import { ActionForm } from '@/shared/ui/form/BaseForm/types';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface Emits {
-  (event: 'on-submit', payload: { isValid: boolean, action: ActionForm, isActionNone: boolean }): void
+  (event: 'on-submit', payload: OnSubmitPayload<unknown>): void
 }
 
 const emit = defineEmits<Emits>();
@@ -25,6 +25,7 @@ watch(() => props.config, (newConfig) => {
 
 const onSubmit = (isValid: boolean): void => {
   emit('on-submit', {
+    value: formConfig.value.getValue(),
     isValid,
     ...formConfig.value.getActionStates(props.params),
   });
