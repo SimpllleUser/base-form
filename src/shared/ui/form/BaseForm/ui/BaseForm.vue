@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  defineProps, defineEmits, onMounted, computed,
+  defineProps, defineEmits, onMounted, computed, ref, watch,
 } from 'vue';
 import { useForm } from '../../index';
 import { ActionForm } from '@/shared/ui/form/BaseForm/types';
@@ -17,35 +17,37 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const props = defineProps<Props>();
-const {
-  form, submitForm, resetForm, getActionStates, getAction, isActionNone,
-} = useForm(props.config);
+
+const formConfig = ref(useForm(props.config));
+watch(() => props.config, (newConfig) => {
+  formConfig.value = useForm(newConfig);
+}, { deep: true });
 
 const onSubmit = (isValid: boolean): void => {
   emit('on-submit', {
     isValid,
-    ...getActionStates(props.params),
+    ...formConfig.value.getActionStates(props.params),
   });
 };
 
 onMounted(() => {
-  resetForm();
+  formConfig.value.resetForm();
 });
 
-const submitButtonLabel = computed(() => getAction(props?.params || {}));
-const showButtonAction = computed(() => !isActionNone(props?.params || {}));
+const submitButtonLabel = computed(() => formConfig.value.getAction(props?.params || {}));
+const showButtonAction = computed(() => !formConfig.value.isActionNone(props?.params || {}));
 </script>
 
 <template>
   <div>
     <h1>Base form</h1>
-    <slot :form="form"/>
+    <slot :form="formConfig.form"/>
   </div>
   <div class="actions">
     <slot name="actions" >
       <button
         v-if="showButtonAction"
-        @click="submitForm(onSubmit)">{{ submitButtonLabel }}</button>
+        @click="formConfig.submitForm(onSubmit)">{{ submitButtonLabel }}</button>
     </slot>
   </div>
 </template>

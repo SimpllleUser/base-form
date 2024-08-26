@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { ref } from 'vue';
 import { BaseInput, ListInput } from '../shared/ui/inputs';
 import {
+  ActionForm,
   BaseForm, OnSubmitParams,
 } from '../shared/ui/form/BaseForm';
 import { TestForm } from './config';
-import { UserApiService } from '@/shared/lib/api/UserApiService';
-
-const formConfig = new TestForm();
 
 const onSubmit = (params: OnSubmitParams) => {
   console.log(params);
 };
 
-onMounted(async () => {
-  const userService = new UserApiService('https://jsonplaceholder.typicode.com/users');
-  const { data } = await userService.getUsers();
-  console.log(data);
-});
+const data = ref({ header: '', list: [] });
 
+setTimeout(() => {
+  data.value = { header: '123123123', list: [] };
+}, 2000);
+
+const useEntity = (data: any) => new TestForm(data);
 </script>
 
 <template>
   <main>
     <div>
       <BaseForm
-        :config="formConfig"
+        :config="useEntity(data)"
+        :params="{
+          action: ActionForm.Create
+        }"
         @on-submit="onSubmit"
       >
         <template #default="{ form }: { form: TestForm }">
-          <BaseInput v-model="form.header.title" />
+          <BaseInput v-model="form.header" />
           <ListInput v-model="form.list" />
         </template>
       </BaseForm>

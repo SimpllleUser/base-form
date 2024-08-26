@@ -66,14 +66,12 @@ interface IForm {
 }
 
 export class TestForm {
-  header: {
-    title: TextInput
-  } = { title: input.text() }
+  header: TextInput
 
   list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
-    this.header.title = input.text();
+    this.header = input.text({ value: data?.header });
     this.list = input.list(ITEMS_LIST, getInputRowDefault());
   }
 }

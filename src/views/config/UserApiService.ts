@@ -1,6 +1,6 @@
-import { DefaultApiService } from './DefaultApiService';
-import { User } from '../../../views/config/User';
-import AxiosService from '../../../shared/lib/api/AxiosService';
+import AxiosService from '../../shared/lib/api/AxiosService';
+import { DefaultApiService } from '../../shared/lib/api/DefaultApiService';
+import { User } from './User';
 
 export class UserApiService {
   private apiService: DefaultApiService
