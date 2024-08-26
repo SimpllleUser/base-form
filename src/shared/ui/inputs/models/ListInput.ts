@@ -43,10 +43,13 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
  set canValidate(value: boolean) {
    this.allowValidate = value;
    this.items
-     .forEach(item => Object.values(item)
-       .forEach((input) => {
-         (input as ABaseInput).canValidate = value;
-       }));
+     .forEach(item => {
+       forOwn(item, (input) => {
+         if (has(input, 'allowValidate')) {
+           input.canValidate = value;
+         }
+       });
+     });
  }
 
  resetValue() {
