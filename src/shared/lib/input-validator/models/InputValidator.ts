@@ -13,7 +13,11 @@ export class InputValidator<T> {
     const [rule, paramsInString] = validationRule?.split(':') || [];
     const paramsInArray: Array<string> = paramsInString?.split(',') || [];
 
-    const validationFunction = rules[rule as ValidationRule] as ValidationFunction;
+    const validationFunction = rules[rule as ValidationRule] as ValidationFunction | undefined;
+
+    if (!validationFunction) {
+      throw new Error('Not rules not exist');
+    }
 
     return (value: T) => validationFunction(value, ...paramsInArray);
   }
