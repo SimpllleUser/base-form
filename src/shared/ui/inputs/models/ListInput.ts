@@ -24,8 +24,7 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
  }
 
  add(): void {
-   const item = Object.assign(cloneDeep(this.defaultItem), { key: this.items.length });
-   this.items.push(item);
+   this.items.push(cloneDeep(this.defaultItem));
  }
 
  remove(item: T): void {
