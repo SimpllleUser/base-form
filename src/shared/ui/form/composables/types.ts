@@ -1,11 +1,11 @@
-import { ValidationRule } from '../../../lib/input-validator/types';
+import { ValidationParams } from '../../../lib/input-validator/types';
 import { ABaseInput } from '../../inputs/models/BaseInput';
 
 export interface InputPrams<T = string> {
     value: T;
     label: string;
     hint: string;
-    rules: Array<ValidationRule | string>
+    rules: Partial<ValidationParams> | object;
 }
 
 export type InputConfig = InputPrams & { component: string; type?: string }

@@ -1,40 +1,58 @@
-import { isBoolean, isString } from 'lodash';
-import type { ValidationRule, ValidationFunction } from '../../../../shared/lib/input-validator';
-import { rules } from '../../../../shared/lib/input-validator';
+import {
+  isBoolean,
+  isString,
+  mapValues,
+} from 'lodash';
+import {
+  rules, ValidationFunctionMap, ValidationParams, ValidationResult,
+} from '../../../../shared/lib/input-validator';
+
+type ValidationRulesScheme = Partial<
+  Record<
+    keyof ValidationFunctionMap,
+    Partial<ValidationParams[keyof ValidationParams]>>
+> | object;
 
 export class InputValidator<T> {
-  private readonly validationRules?: Array<ValidationRule | string> = [];
+  private readonly validationRules?: ValidationRulesScheme;
 
-  constructor(rules?: Array<ValidationRule | string>) {
-    this.validationRules = rules;
+  constructor(rules?: ValidationRulesScheme) {
+    this.validationRules = rules || {};
   }
 
-  private getRuleValidation(validationRule: ValidationRule | string): (value: T) => boolean | string {
-    const [rule, paramsInString] = validationRule?.split(':') || [];
-    const paramsInArray: Array<string> = paramsInString?.split(',') || [];
+  private isValidationRule(rule: keyof ValidationFunctionMap): boolean {
+    return rules[rule] && typeof rules[rule] === 'function';
+  }
 
-    const validationFunction = rules[rule as ValidationRule] as ValidationFunction | undefined;
-
-    if (!validationFunction) {
-      throw new Error('Not rules not exist');
+  private checkRuleByValue(value: unknown, { ruleValue, ruleKey }: {
+    ruleValue: never, ruleKey: keyof ValidationFunctionMap
+  }): ValidationResult {
+    if (this.isValidationRule(ruleKey)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return rules[ruleKey]({ [ruleKey]: ruleValue, value });
     }
-
-    return (value: T) => validationFunction(value, ...paramsInArray);
+    return false;
   }
 
-  isValid(value: T): boolean {
-    if (!this.validationRules?.length) return true;
-
-    return this.validationRules
-      .map(this.getRuleValidation.bind(this))
-      .map(validationFunction => validationFunction(value))
-      .every(isBoolean);
+  isValid(value: unknown): boolean {
+    const res = Object.values(
+      mapValues(
+        this.validationRules,
+        (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
+      ),
+    ).every(isBoolean);
+    console.log(res);
+    return res;
   }
 
   getErrors(value: T): string {
-    return this.validationRules
-      ?.map(this.getRuleValidation.bind(this))
-      ?.map(validationFunction => validationFunction(value))
-      ?.filter(isString)[0] || '';
+    return Object.values(
+      mapValues(
+        this.validationRules,
+        (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
+
+      ),
+    ).filter(isString)[0];
   }
 }

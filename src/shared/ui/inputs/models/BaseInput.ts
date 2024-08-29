@@ -1,5 +1,5 @@
 import type { InputPrams } from '../../form/composables';
-import { ValidationRule } from '../../../lib/input-validator/types';
+import { ValidationParams } from '../../../lib/input-validator/types';
 import { InputValidator } from '../../../lib/input-validator';
 import { DEFAULT_PARAMS_INPUT } from '../constants';
 
@@ -20,7 +20,7 @@ export abstract class ABaseInput {
 
   label?: string = DEFAULT_PARAMS_INPUT.label;
 
-  rules?: Array<ValidationRule | string> = DEFAULT_PARAMS_INPUT.rules;
+  rules?: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
 
   inputValidator: InputValidator<unknown>
 

@@ -1,7 +1,6 @@
 import input from '../../shared/ui/inputs/models/InputConfigurator';
 import { ListInput } from '../../shared/ui/inputs/models/ListInput';
 import { TextInput } from '../../shared/ui/inputs/models/TextInput';
-import { ValidationRule } from '../../shared/lib/input-validator';
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -12,13 +11,11 @@ const getInputRowDefault = (): IListItem => ({
     value: '',
     label: 'Label',
     hint: 'Hint',
-    rules: [`${ValidationRule.Length}: 5`],
   }),
   description: input.text({
     value: '',
     label: 'Label description',
     hint: 'Hint description',
-    rules: [`${ValidationRule.Length}: 5`],
   }),
 });
 
@@ -28,13 +25,11 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
       value: 'Some text',
       label: 'Label',
       hint: 'Hint',
-      rules: [`${ValidationRule.Length}: 5`],
     }),
     description: input.text({
       value: 'Some text description',
       label: 'Label description',
       hint: 'Hint description',
-      rules: [`${ValidationRule.Length}: 5`],
     }),
   },
   {
@@ -42,13 +37,11 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
       value: 'Some text',
       label: 'Label',
       hint: 'Hint',
-      rules: [`${ValidationRule.Length}: 5`],
     }),
     description: input.text({
       value: 'Some text description',
       label: 'Label description',
       hint: 'Hint description',
-      rules: [`${ValidationRule.Length}: 5`],
     }),
   },
 ];
@@ -69,7 +62,7 @@ export class TestForm implements IForm {
   list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
-    this.header = input.text({ value: data?.header });
+    this.header = input.text({ value: data?.header, rules: { length: 5 } });
     this.list = input.list(ITEMS_LIST, getInputRowDefault());
   }
 }
