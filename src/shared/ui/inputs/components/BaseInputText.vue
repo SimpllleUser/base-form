@@ -27,30 +27,5 @@ const onInput = (event: Event) => {
 </script>
 
 <template>
-  <label class="label"> {{ input.label }} </label>
-  <br>
   <input v-model="input.value"  :value="input.value" :type="input.type" @input="onInput"  />
-  <br>
-  <span class="hint">{{ input.hint }}</span>
-  <br>
-  <span v-if="!input.isValid()" class="invalid-field">
-    {{ input.getErrors() }}
-  </span>
 </template>
-
-<style scoped lang="scss">
-.label {
-  font-size: 14px;
-  color: #464646;
-  font-weight: bold;
-}
-.hint {
-  font-size: 10px;
-  color: #8c8c8c;
-  font-weight: bolder;
-}
-  .invalid-field {
-    color: red;
-    font-size: 12px;
-  }
-</style>

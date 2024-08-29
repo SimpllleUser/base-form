@@ -23,9 +23,29 @@ const input = computed({
 </script>
 
 <template>
+  <label v-if="input.label" class="label">{{ input.label }}</label>
+  <br>
   <component :is="input.component" v-model="input" />
+  <br>
+  <span class="hint" v-if="input.hint">{{ input.hint }}</span>
+  <span v-if="!input.isValid()" class="invalid-field">
+    {{ input.getErrors() }}
+  </span>
 </template>
 
 <style scoped lang="scss">
-
+.label {
+  font-size: 14px;
+  color: #464646;
+  font-weight: bold;
+}
+.hint {
+  font-size: 10px;
+  color: #8c8c8c;
+  font-weight: bolder;
+}
+.invalid-field {
+  color: red;
+  font-size: 12px;
+}
 </style>
