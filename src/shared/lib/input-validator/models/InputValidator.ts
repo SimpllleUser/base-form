@@ -36,14 +36,12 @@ export class InputValidator<T> {
   }
 
   isValid(value: unknown): boolean {
-    const res = Object.values(
+    return Object.values(
       mapValues(
         this.validationRules,
         (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
       ),
     ).every(isBoolean);
-    console.log(res);
-    return res;
   }
 
   getErrors(value: T): string {
@@ -51,7 +49,6 @@ export class InputValidator<T> {
       mapValues(
         this.validationRules,
         (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
-
       ),
     ).filter(isString)[0];
   }
