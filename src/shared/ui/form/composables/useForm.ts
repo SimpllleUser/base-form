@@ -117,7 +117,8 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
   const getValue = <T extends object>(): T => Object
     .fromEntries(Object
       .entries(form.value)
-      .map(([key, input]) => [key, input.getValue()])) as T;
+      .filter(([_, input]) => isActualInstance(input))
+      .map(([key, input]) => [key, input?.getValue()])) as T;
 
   return {
     form,

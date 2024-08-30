@@ -57,11 +57,14 @@ interface IForm {
 }
 
 export class TestForm implements IForm {
+  id?: string;
+
   header: TextInput
 
   list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
+    this.id = 'test-id';
     this.header = input.text({ value: data?.header, rules: { length: 5 } });
     this.list = input.list(ITEMS_LIST, getInputRowDefault());
   }
