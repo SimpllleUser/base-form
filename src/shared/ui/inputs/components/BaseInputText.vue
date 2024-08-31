@@ -27,5 +27,11 @@ const onInput = (event: Event) => {
 </script>
 
 <template>
-  <input v-model="input.value"  :value="input.value" :type="input.type" @input="onInput"  />
+  <VTextField
+    v-model="input.value"
+    :value="input.value"
+    :type="input.type"
+    @input="onInput"
+    hide-details
+  />
 </template>
