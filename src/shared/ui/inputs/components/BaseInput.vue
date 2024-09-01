@@ -23,7 +23,7 @@ const input = computed({
 </script>
 
 <template>
-  <label v-if="input.label" class="v-label">{{ input.label }}</label>
+  <label v-if="input.label" class="v-label">{{ input.label }} </label>
   <component :is="input.component" v-model="input"/>
   <div style="opacity: 1" class="v-messages mt-2" role="alert" aria-live="polite">
     <Transition>
