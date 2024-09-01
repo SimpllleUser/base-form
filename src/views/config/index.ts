@@ -65,7 +65,7 @@ export class TestForm implements IForm {
 
   constructor(data?: ITestFormData) {
     this.id = 'test-id';
-    this.header = input.text({ value: data?.header, rules: { length: 5 } });
+    this.header = input.text({ value: data?.header, rules: { length: 5 }, label: 'Header label' });
     this.list = input.list(ITEMS_LIST, getInputRowDefault());
   }
 }
