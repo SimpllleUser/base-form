@@ -3,6 +3,7 @@
 import { computed, defineProps, defineEmits } from 'vue';
 import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
 import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import { Icon } from '@/core/types/icons';
 
 interface Props {
   modelValue: TextInput
@@ -31,6 +32,10 @@ const onInput = (event: Event) => {
     v-model="input.value"
     :value="input.value"
     :type="input.type"
+    :append-inner-icon="input.appendInnerIcon"
+    :clearable="input.clearable"
+    :placeholder="input.placeholder"
+    :suffix="input.suffix"
     @input="onInput"
     hide-details
   />

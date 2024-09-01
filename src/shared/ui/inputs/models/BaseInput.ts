@@ -20,6 +20,8 @@ export abstract class ABaseInput {
 
   label?: string = DEFAULT_PARAMS_INPUT.label;
 
+  placeholder?: string = DEFAULT_PARAMS_INPUT.label;
+
   rules?: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
 
   inputValidator: InputValidator<unknown>
@@ -30,6 +32,7 @@ export abstract class ABaseInput {
     this.value = data.value;
     this.hint = data.hint;
     this.label = data.label;
+    this.placeholder = data.placeholder || data.label;
     this.rules = data.rules;
     this.inputValidator = new InputValidator(this.rules);
   }

@@ -1,6 +1,6 @@
 import { forOwn } from 'lodash';
 import type { InputPrams } from '../../form/composables';
-import { TextInput, ListInput } from '.';
+import { TextInput, ListInput, TextInputParams } from '.';
 import { ABaseInput } from './BaseInput';
 
 type InputDataItem = Record<string, CallableFunction>
@@ -30,7 +30,7 @@ class InputConfigurator<T> {
 }
 
 interface InputsOfConfig {
-  text: (params?: Partial<InputPrams<string>>) => TextInput
+  text: (params?: TextInputParams) => TextInput
   list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
 }
 

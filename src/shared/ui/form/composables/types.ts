@@ -4,6 +4,7 @@ import { ABaseInput } from '../../inputs/models/BaseInput';
 export interface InputPrams<T = string> {
     value: T;
     label: string;
+    placeholder: string;
     hint: string;
     rules: Partial<ValidationParams> | object;
 }
