@@ -3,6 +3,7 @@ import { computed, defineProps, defineEmits } from 'vue';
 import { BaseInput } from '.';
 import type { ListInput } from '../models/ListInput';
 import type { ABaseInput } from '../models/BaseInput';
+import { Colors, Sizes, Variants } from '@/core/types/vuetify';
 
   interface Props {
     modelValue: ListInput<ABaseInput>
@@ -22,15 +23,29 @@ const listData = computed({
 </script>
 
 <template>
-  <div>
-    <button @click="listData.add">Add</button>
-  </div>
-  <div v-for="(inputsRow, rowIndex) in listData.items" :key="rowIndex" style="display: flex; justify-content: space-between">
-    <div v-for="(key, index) in Object.keys(inputsRow)" :key="index" class="flex items-center">
-      <BaseInput v-model="inputsRow[key]" :key="`${rowIndex}-{key}`" />
+  <div class="d-flex justify-space-between">
+    <div>
+      <label for="">Label</label>
     </div>
-    <button @click="listData.remove(inputsRow)">Remove</button>
+    <div>
+      <VBtn @click="listData.add()" :size="Sizes.Small" :color="Colors.Primary">Add</VBtn>
+    </div>
   </div>
+  <VRow
+    class=" d-flex justify-space-between" v-for="(inputsRow, rowIndex) in listData.items" :key="rowIndex">
+    <VCol v-for="(key, index) in Object.keys(inputsRow)" :key="index" class="flex items-center">
+      <BaseInput v-model="inputsRow[key]" :key="`${rowIndex}-{key}`" />
+    </VCol>
+    <VCol cols="1" class="d-flex align-center">
+      <VBtn
+        @click="listData.remove(inputsRow)"
+        :size="Sizes.Small"
+        :color="Colors.Primary"
+        :variant="Variants.Text">
+            Remove
+      </VBtn>
+    </VCol>
+  </VRow>
 </template>
 
 <style scoped lang="scss">
