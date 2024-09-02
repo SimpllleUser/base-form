@@ -1,4 +1,4 @@
-import input from '../../shared/ui/inputs/models/InputConfigurator';
+import input from '../../shared/ui/inputs/models/input';
 import { ListInput } from '../../shared/ui/inputs/models/ListInput';
 import { TextInput } from '../../shared/ui/inputs/models/TextInput';
 

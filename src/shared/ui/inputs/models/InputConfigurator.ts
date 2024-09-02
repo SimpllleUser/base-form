@@ -6,7 +6,7 @@ import { TextareaInput, TextareaInputParams } from '@/shared/ui/inputs/models/Te
 
 type InputDataItem = Record<string, CallableFunction>
 
-class InputConfigurator<T> {
+export class InputConfigurator<T> {
   private static instance: InputConfigurator<any>
 
    private readonly inputs!: T
@@ -29,24 +29,3 @@ class InputConfigurator<T> {
      return this.inputs;
    }
 }
-
-interface InputsOfConfig {
-  text: (params?: TextInputParams) => TextInput
-  textarea: (params?: TextareaInputParams) => TextareaInput
-  list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
-}
-
-const list: InputsOfConfig = {
-  text: (params) => new TextInput(params),
-  textarea: (params) => new TextareaInput(params),
-  list: (
-    items,
-    defaultItem,
-  ) => new ListInput(items, defaultItem),
-};
-
-const input = new InputConfigurator<InputsOfConfig>(list);
-
-export const { addInput } = input;
-
-export default input.getInputs();
