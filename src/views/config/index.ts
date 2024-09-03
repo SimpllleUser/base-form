@@ -1,6 +1,7 @@
 import input from '../../shared/ui/inputs/models/input';
 import { ListInput } from '../../shared/ui/inputs/models/ListInput';
 import { TextInput } from '../../shared/ui/inputs/models/TextInput';
+import { ToggleCheckInput } from '@/shared/ui/inputs/models/ToggleCheckInput';
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -53,7 +54,8 @@ export interface ITestFormData {
 
 interface IForm {
   header: TextInput;
-  list: ListInput<IListItem>;
+  checker: ToggleCheckInput
+  // list: ListInput<IListItem>;
 }
 
 export class TestForm implements IForm {
@@ -61,7 +63,9 @@ export class TestForm implements IForm {
 
   header: TextInput
 
-  list: ListInput<IListItem>
+  checker: ToggleCheckInput
+
+  // list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
     this.id = 'test-id';
@@ -72,6 +76,6 @@ export class TestForm implements IForm {
       rows: 3,
       autoGrow: true,
     });
-    this.list = input.list(ITEMS_LIST, getInputRowDefault());
+    this.checker = input.switch({ label: 'Checker' });
   }
 }

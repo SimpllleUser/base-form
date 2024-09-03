@@ -3,11 +3,13 @@ import { TextareaInput, TextareaInputParams } from '@/shared/ui/inputs/models/Te
 import { ABaseInput } from '@/shared/ui/inputs/models/BaseInput';
 import { ListInput } from '@/shared/ui/inputs/models/ListInput';
 import { InputConfigurator } from './InputConfigurator';
+import { ToggleCheckInput, ToggleCheckInputParams } from '@/shared/ui/inputs/models/ToggleCheckInput';
 
 interface InputsOfConfig {
   text: (params?: TextInputParams) => TextInput
   textarea: (params?: TextareaInputParams) => TextareaInput
   list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
+  switch: (params?: ToggleCheckInputParams) => ToggleCheckInput
 }
 
 const list: InputsOfConfig = {
@@ -17,7 +19,8 @@ const list: InputsOfConfig = {
     items,
     defaultItem,
   ) => new ListInput(items, defaultItem),
-  /// switch & check make similar class
+  switch: (params) => new ToggleCheckInput(params),
+  /// check make similar class
   /// select
 };
 
