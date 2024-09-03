@@ -1,4 +1,4 @@
-import { TextInput, TextInputParams } from '@/shared/ui/inputs/models/TextInput';
+import { TextInput, TextInputParams } from '@/shared/ui/inputs/components/text';
 import { TextareaInput, TextareaInputParams } from '@/shared/ui/inputs/models/TextareaInput';
 import { ABaseInput } from '@/shared/ui/inputs/models/BaseInput';
 import { ListInput } from '@/shared/ui/inputs/models/ListInput';
