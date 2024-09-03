@@ -3,7 +3,6 @@ import type { InputPrams } from '../../form/composables';
 import { Icon } from '../../../../core/types/icons';
 import { Nullable } from '@/core/types/common';
 import { DEFAULT_PARAMS_INPUT } from '@/shared/ui/inputs';
-import BaseSwitchInput from '@/shared/ui/inputs/components/BaseSwitchInput.vue';
 
 export type ToggleCheckInputParams = Partial<InputPrams<boolean> & {
   appendIcon: Nullable<Icon>
@@ -11,7 +10,7 @@ export type ToggleCheckInputParams = Partial<InputPrams<boolean> & {
 }>
 
 export class ToggleCheckInput {
-  component = markRaw(BaseSwitchInput)
+  component: unknown
 
    value: boolean;
 
@@ -29,7 +28,8 @@ export class ToggleCheckInput {
 
    color = 'primary'
 
-   constructor(data?: ToggleCheckInputParams) {
+   constructor(component: object, data?: ToggleCheckInputParams) {
+     this.component = markRaw(component);
      this.value = !!data?.value;
      this.appendIcon = data?.appendIcon ?? null;
      this.prependIcon = data?.prependIcon ?? null;

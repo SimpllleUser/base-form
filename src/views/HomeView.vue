@@ -33,6 +33,7 @@ const useEntity = (data: any) => new TestForm(data);
       >
         <template #default="{ form }: { form: TestForm }">
           <BaseInput v-model="form.checker" />
+          <BaseInput v-model="form.switcher" />
           <BaseInput v-model="form.header" />
         </template>
       </BaseForm>

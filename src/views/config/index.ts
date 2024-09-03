@@ -63,6 +63,8 @@ export class TestForm implements IForm {
 
   header: TextInput
 
+  switcher: ToggleCheckInput
+
   checker: ToggleCheckInput
 
   // list: ListInput<IListItem>
@@ -76,6 +78,7 @@ export class TestForm implements IForm {
       rows: 3,
       autoGrow: true,
     });
-    this.checker = input.switch({ label: 'Checker' });
+    this.switcher = input.switch({ label: 'Switcher' });
+    this.checker = input.check({ label: 'Checker' });
   }
 }
