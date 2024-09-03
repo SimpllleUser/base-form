@@ -71,12 +71,10 @@ export class TestForm implements IForm {
 
   constructor(data?: ITestFormData) {
     this.id = 'test-id';
-    this.header = input.textarea({
+    this.header = input.text({
       value: data?.header,
       rules: { length: 5 },
       label: 'Header label',
-      rows: 3,
-      autoGrow: true,
     });
     this.switcher = input.switch({ label: 'Switcher' });
     this.checker = input.check({ label: 'Checker' });
