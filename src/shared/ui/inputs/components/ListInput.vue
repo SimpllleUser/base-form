@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import { BaseInput } from '.';
 import type { ListInput } from '../models/ListInput';
 import type { ABaseInput } from '../models/BaseInput';
 import { Colors, Sizes, Variants } from '@/core/types/vuetify';
+// import InputTemplate from '@/shared/ui/inputs/components/input-template/InputTemplate.vue';
+import { InputForm } from '../components/input-form';
 
   interface Props {
     modelValue: ListInput<ABaseInput>
@@ -34,7 +35,7 @@ const listData = computed({
   <VRow
     class=" d-flex justify-space-between" v-for="(inputsRow, rowIndex) in listData.items" :key="rowIndex">
     <VCol v-for="(key, index) in Object.keys(inputsRow)" :key="index" class="flex items-center">
-      <BaseInput v-model="inputsRow[key]" :key="`${rowIndex}-{key}`" />
+      <InputForm v-model="inputsRow[key]" :key="`${rowIndex}-{key}`" />
     </VCol>
     <VCol cols="1" class="d-flex align-center">
       <VBtn

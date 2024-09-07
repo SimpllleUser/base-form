@@ -3,16 +3,12 @@ import { ABaseInput, type BaseInputConfig } from './BaseInput';
 import type { InputPrams } from '../../form/composables';
 import { InputValidator } from '../../../lib/input-validator';
 import { Icon } from '../../../../core/types/icons';
-import BaseInputText from '../components/BaseInputText.vue';
+import BaseInputText from '../components/text/BaseInputText.vue';
 
 export interface AdditionalTextInputParams {
   clearable: boolean,
   appendInnerIcon: Icon | null,
   suffix: string,
-
-  // Make this props like common in BaseInput component
-  // disabled: boolean,
-  // loading: boolean,
 
 }
 
