@@ -1,7 +1,6 @@
 import input from '../../shared/ui/inputs/models/input';
-import { ListInput } from '../../shared/ui/inputs/models/ListInput';
 import { TextInput } from '../../shared/ui/inputs/models/TextInput';
-import { ToggleCheckInput } from '@/shared/ui/inputs/models/ToggleCheckInput';
+import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/ToggleCheckInput';
 
 type FieldsOfRecord = 'text' | 'description'
 

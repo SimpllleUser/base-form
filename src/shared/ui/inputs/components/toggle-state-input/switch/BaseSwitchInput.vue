@@ -1,7 +1,13 @@
 <script lang="ts" setup>
+import {
+  defineOptions, computed, defineProps, defineEmits,
+} from 'vue';
 
-import { computed, defineProps, defineEmits } from 'vue';
-import { ToggleCheckInput } from '@/shared/ui/inputs/models/ToggleCheckInput';
+defineOptions({
+  name: 'BaseSwitchInput',
+});
+
+import { ToggleCheckInput } from '../ToggleCheckInput';
 
 interface Props {
   modelValue: ToggleCheckInput
@@ -21,7 +27,7 @@ const input = computed({
 </script>
 
 <template>
-  <v-checkbox
+  <v-switch
     v-model="input.value"
     :color="input.color"
     :append-icon="input.appendIcon"
