@@ -1,4 +1,4 @@
-import input from '../../shared/ui/inputs/models/input';
+import input from '../../shared/ui/inputs/config';
 import { TextInput } from '../../shared/ui/inputs/components/text';
 import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/ToggleCheckInput';
 

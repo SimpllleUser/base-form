@@ -1,5 +1,5 @@
 import { cloneDeep, forOwn, has } from 'lodash';
-import type { InputFormAbstract } from '../components/input-form/model';
+import type { InputFormAbstract } from '../input-form';
 
 export interface IListInput<T> {
   items: Array<T>;

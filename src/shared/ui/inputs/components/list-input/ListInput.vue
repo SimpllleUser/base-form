@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from 'vue';
-import type { ListInput } from '../models/ListInput';
-import type { ABaseInput } from '../models/BaseInput';
-import { Colors, Sizes, Variants } from '@/core/types/vuetify';
-// import InputTemplate from '@/shared/ui/inputs/components/input-template/InputTemplate.vue';
-import { InputForm } from '../components/input-form';
+import { InputFormAbstract } from '../input-form/model';
+import { ListInput } from './model';
 
-  interface Props {
-    modelValue: ListInput<ABaseInput>
+interface Props {
+    modelValue: ListInput<InputFormAbstract>
   }
 
   interface Emits {
-    (event: 'update:modelValue', payload: ListInput<ABaseInput>): void
+    (event: 'update:modelValue', payload: ListInput<InputFormAbstract>): void
   }
 
 const props = defineProps<Props>();
