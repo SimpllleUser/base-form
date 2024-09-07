@@ -1,7 +1,6 @@
-import { TextInput, TextInputParams } from '@/shared/ui/inputs/components/text/model';
+import { TextInput, TextInputParams } from './model';
 
 export * from './model';
-export { default as BaseInputText } from './BaseInputText.vue';
 
 export interface IText {
   text: (params?: TextInputParams) => TextInput

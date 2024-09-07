@@ -1,8 +1,4 @@
 import { forOwn } from 'lodash';
-import type { InputPrams } from '../../form/composables';
-import { TextInput, ListInput, TextInputParams } from '.';
-import { ABaseInput } from './BaseInput';
-import { TextareaInput, TextareaInputParams } from '@/shared/ui/inputs/models/TextareaInput';
 
 type InputDataItem = Record<string, CallableFunction>
 

@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 
 import { computed, defineProps, defineEmits } from 'vue';
-import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
-import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
-import { Icon } from '@/core/types/icons';
-import { TextareaInput } from '@/shared/ui/inputs/models/TextareaInput';
+import { ABaseInput } from '../../../inputs/models';
+import { TextareaInput } from './model';
 
 interface Props {
   modelValue: TextareaInput

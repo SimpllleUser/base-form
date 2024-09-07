@@ -1,11 +1,8 @@
 import { markRaw } from 'vue';
-import { ABaseInput, type BaseInputConfig } from './BaseInput';
-import type { InputPrams } from '../../form/composables';
-import { InputValidator } from '../../../lib/input-validator';
-import { Icon } from '../../../../core/types/icons';
-import BaseInputText from '../components/BaseInputText.vue';
 import { TextInput } from '@/shared/ui/inputs/models/TextInput';
-import BaseInputTextarea from '@/shared/ui/inputs/components/BaseInputTextarea.vue';
+import BaseInputTextarea from './BaseInputTextarea.vue';
+// import { InputPrams } from 's/shared/ui/form';
+import { InputPrams } from '../../../form';
 
 export interface AdditionalTextareaInputParams {
   counter: boolean;

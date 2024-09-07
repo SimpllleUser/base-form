@@ -1,13 +1,12 @@
-import { IText, text } from '@/shared/ui/inputs/components/text';
-import { TextareaInput, TextareaInputParams } from '@/shared/ui/inputs/models/TextareaInput';
 import { ABaseInput } from '@/shared/ui/inputs/models/BaseInput';
 import { ListInput } from '@/shared/ui/inputs/models/ListInput';
 import { InputConfigurator } from './InputConfigurator';
 import { ToggleCheckInput, ToggleCheckInputParams } from '@/shared/ui/inputs/models/ToggleCheckInput';
 import { BaseCheckInput, BaseSwitchInput } from '@/shared/ui/inputs';
+import { ITextarea, textarea } from '../components/textarea';
+import { IText, text } from '../components/text';
 
-type InputsOfConfig = IText & {
-  textarea: (params?: TextareaInputParams) => TextareaInput
+type InputsOfConfig = IText & ITextarea & {
   list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
   switch: (params?: ToggleCheckInputParams) => ToggleCheckInput
   check: (params?: ToggleCheckInputParams) => ToggleCheckInput
@@ -15,7 +14,7 @@ type InputsOfConfig = IText & {
 
 const list: InputsOfConfig = {
   text,
-  textarea: (params) => new TextareaInput(params),
+  textarea,
   list: (
     items,
     defaultItem,
