@@ -1,7 +1,7 @@
 import { markRaw } from 'vue';
 import { TextInput } from '../text/model';
 import BaseInputTextarea from './BaseInputTextarea.vue';
-import { InputPrams } from '../../../form';
+import { InputFormFundamentalFields } from '../../../form';
 
 export interface AdditionalTextareaInputParams {
   counter: boolean;
@@ -12,7 +12,7 @@ export interface AdditionalTextareaInputParams {
 
 }
 
-export type TextareaInputParams = Partial<InputPrams<string> & AdditionalTextareaInputParams>
+export type TextareaInputParams = Partial<InputFormFundamentalFields<string> & AdditionalTextareaInputParams>
 
 export class TextareaInput extends TextInput {
    component: unknown = markRaw(BaseInputTextarea);

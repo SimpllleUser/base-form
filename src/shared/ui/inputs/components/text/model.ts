@@ -1,6 +1,6 @@
 import { markRaw } from 'vue';
 import { InputValidator } from '@/shared/lib/input-validator';
-import { InputPrams } from '@/shared/ui/form';
+import { InputFormFundamentalFields } from '@/shared/ui/form';
 
 import BaseInputText from './BaseInputText.vue';
 import { Icon } from '@/core/types/icons';
@@ -17,7 +17,7 @@ export interface AdditionalTextInputParams {
 
 }
 
-export type TextInputParams = Partial<InputPrams<string> & AdditionalTextInputParams>
+export type TextInputParams = Partial<InputFormFundamentalFields<string> & AdditionalTextInputParams>
 
 export class TextInput extends InputFormAbstract {
    component: unknown = markRaw(BaseInputText);

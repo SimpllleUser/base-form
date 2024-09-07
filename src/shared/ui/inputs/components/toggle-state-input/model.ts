@@ -1,10 +1,10 @@
 import { markRaw } from 'vue';
 import { Nullable } from '@/core/types/common';
 import { InputFormAbstract, InputFormParams } from '@/shared/ui/inputs';
-import { InputPrams } from '@/shared/ui/form';
+import { InputFormFundamentalFields } from '@/shared/ui/form';
 import { Icon } from '@/core/types/icons';
 
-export type ToggleCheckInputParams = Partial<InputPrams<boolean> & {
+export type ToggleCheckInputParams = Partial<InputFormFundamentalFields<boolean> & {
   appendIcon: Nullable<Icon>
   prependIcon: Nullable<Icon>
 }>

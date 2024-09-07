@@ -1,5 +1,5 @@
 import { InputValidator, ValidationParams } from '@/shared/lib/input-validator';
-import { InputPrams } from '@/shared/ui/form';
+import { InputFormFundamentalFields } from '@/shared/ui/form';
 import { DEFAULT_PARAMS_INPUT } from '../../constants';
 
 interface InputFormParamsFields {
@@ -32,7 +32,7 @@ export abstract class InputFormAbstract {
 
   allowValidate = false
 
-  protected constructor(data: Partial<InputPrams<string>> = DEFAULT_PARAMS_INPUT) {
+  protected constructor(data: Partial<InputFormFundamentalFields<string>> = DEFAULT_PARAMS_INPUT) {
     this.hint = data.hint;
     this.label = data.label;
     this.placeholder = data.placeholder || data.label;
