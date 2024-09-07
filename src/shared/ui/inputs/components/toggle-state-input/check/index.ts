@@ -1,4 +1,4 @@
-import { ToggleCheckInput, ToggleCheckInputParams } from '@/shared/ui/inputs/components/toggle-state-input/ToggleCheckInput';
+import { ToggleCheckInput, ToggleCheckInputParams } from '@/shared/ui/inputs/components/toggle-state-input/model';
 import BaseCheckInput from './BaseCheckInput.vue';
 
 export interface ICheck {

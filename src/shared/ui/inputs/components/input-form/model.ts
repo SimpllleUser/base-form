@@ -2,6 +2,15 @@ import { InputValidator, ValidationParams } from '@/shared/lib/input-validator';
 import { InputPrams } from '@/shared/ui/form';
 import { DEFAULT_PARAMS_INPUT } from '../../constants';
 
+interface InputFormParamsFields {
+  hint: string
+  label: string
+  placeholder: string
+  rules: Partial<ValidationParams> | object
+}
+
+export type InputFormParams = Partial<InputFormParamsFields>
+
 export interface BaseInputConfig<T> {
   component: string | unknown;
   type?: string;

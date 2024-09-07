@@ -7,7 +7,7 @@ defineOptions({
   name: 'BaseSwitchInput',
 });
 
-import { ToggleCheckInput } from '../ToggleCheckInput';
+import { ToggleCheckInput } from '../model';
 
 interface Props {
   modelValue: ToggleCheckInput

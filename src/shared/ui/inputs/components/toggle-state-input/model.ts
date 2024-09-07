@@ -1,6 +1,6 @@
 import { markRaw } from 'vue';
 import { Nullable } from '@/core/types/common';
-import { DEFAULT_PARAMS_INPUT } from '@/shared/ui/inputs';
+import { InputFormAbstract, InputFormParams } from '@/shared/ui/inputs';
 import { InputPrams } from '@/shared/ui/form';
 import { Icon } from '@/core/types/icons';
 
@@ -9,16 +9,17 @@ export type ToggleCheckInputParams = Partial<InputPrams<boolean> & {
   prependIcon: Nullable<Icon>
 }>
 
-export class ToggleCheckInput {
+const getInputFormParams = (data: ToggleCheckInputParams): InputFormParams => ({
+  hint: data?.hint || '',
+  label: data?.label || '',
+  rules: data?.rules || {},
+  placeholder: data?.placeholder || '',
+});
+
+export class ToggleCheckInput extends InputFormAbstract {
   component: unknown
 
    value: boolean;
-
-  hint?: string = DEFAULT_PARAMS_INPUT.hint;
-
-  label?: string = DEFAULT_PARAMS_INPUT.label;
-
-  placeholder?: string = DEFAULT_PARAMS_INPUT.label;
 
    appendIcon: Nullable<Icon>
 
@@ -28,14 +29,12 @@ export class ToggleCheckInput {
 
    color = 'primary'
 
-   constructor(component: object, data?: ToggleCheckInputParams) {
+   constructor(component: object, data: ToggleCheckInputParams) {
+     super(getInputFormParams(data));
      this.component = markRaw(component);
-     this.value = !!data?.value;
+     this.value = Boolean(data?.value);
      this.appendIcon = data?.appendIcon ?? null;
      this.prependIcon = data?.prependIcon ?? null;
-     this.hint = data?.hint || '';
-     this.label = data?.label || '';
-     this.placeholder = data?.placeholder || '';
    }
 
    set canValidate(value: boolean) {
