@@ -1,7 +1,7 @@
 import { cloneDeep, forOwn, has } from 'lodash';
 import type { InputFormAbstract } from '../input-form';
 
-export interface IListInput<T> {
+export interface IInputList<T> {
   items: Array<T>;
   allowValidate: boolean;
 
@@ -11,7 +11,7 @@ export interface IListInput<T> {
   canValidate: boolean;
 }
 
-export class ListInput<T extends Record<string, InputFormAbstract>> implements IListInput<T> {
+export class InputList<T extends Record<string, InputFormAbstract>> implements IInputList<T> {
   items: Array<T>;
 
   allowValidate = false;

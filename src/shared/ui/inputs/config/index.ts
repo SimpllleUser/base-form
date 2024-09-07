@@ -1,20 +1,20 @@
 import { InputConfigurator } from './InputConfigurator';
 import { ITextarea, textarea } from '../components/textarea';
 import { IText, text } from '../components/text';
-import { IListInput, listInput } from '../components/list-input';
+import { IInputList, inputList } from '../components/input-list';
 
 import {
   ISwitch, switchInput, ICheck, check,
 } from '../components/toggle-state-input';
 
-type InputsOfConfig = IText & ITextarea & ISwitch & ICheck & IListInput
+type InputsOfConfig = IText & ITextarea & ISwitch & ICheck & IInputList
 
 const list: InputsOfConfig = {
   text,
   textarea,
   switch: switchInput,
   check,
-  list: listInput,
+  list: inputList,
 };
 
 const input = new InputConfigurator<InputsOfConfig>(list);
