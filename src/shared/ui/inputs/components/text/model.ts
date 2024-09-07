@@ -1,10 +1,10 @@
 import { markRaw } from 'vue';
 import { InputValidator } from '@/shared/lib/input-validator';
 import { InputPrams } from '@/shared/ui/form';
-import { ABaseInput, BaseInputConfig } from '../../models';
 
 import BaseInputText from './BaseInputText.vue';
 import { Icon } from '@/core/types/icons';
+import { InputFormAbstract } from '@/shared/ui/inputs/components/input-form/model';
 
 export interface AdditionalTextInputParams {
   clearable: boolean,
@@ -19,8 +19,10 @@ export interface AdditionalTextInputParams {
 
 export type TextInputParams = Partial<InputPrams<string> & AdditionalTextInputParams>
 
-export class TextInput extends ABaseInput implements BaseInputConfig<string> {
+export class TextInput extends InputFormAbstract {
    component: unknown = markRaw(BaseInputText);
+
+   value = ''
 
   type = 'text';
 
@@ -34,6 +36,7 @@ export class TextInput extends ABaseInput implements BaseInputConfig<string> {
 
   constructor(data?: TextInputParams) {
     super(data);
+    this.value = data?.value ?? '';
     this.clearable = data?.clearable ?? false;
     this.appendInnerIcon = data?.appendInnerIcon || null;
     this.suffix = data?.suffix || '';

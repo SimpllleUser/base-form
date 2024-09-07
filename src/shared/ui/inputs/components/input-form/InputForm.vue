@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 
 import { computed, defineProps, defineEmits } from 'vue';
-import { TextInput } from '../../../../shared/ui/inputs/models/TextInput';
-import type { ABaseInput } from '../../../../shared/ui/inputs/models/BaseInput';
+import { TextInput } from '../text/model';
+import { InputFormAbstract } from '../input-form';
 
 interface Props {
   modelValue: TextInput;
 }
 
 interface Emits {
-  (event: 'update:modelValue', payload: ABaseInput): void;
+  (event: 'update:modelValue', payload: InputFormAbstract): void;
 }
 
 const props = defineProps<Props>();

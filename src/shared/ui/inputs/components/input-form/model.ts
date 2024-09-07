@@ -1,7 +1,6 @@
-import type { InputPrams } from '../../form/composables';
-import { ValidationParams } from '../../../lib/input-validator/types';
-import { InputValidator } from '../../../lib/input-validator';
-import { DEFAULT_PARAMS_INPUT } from '../constants';
+import { InputValidator, ValidationParams } from '@/shared/lib/input-validator';
+import { InputPrams } from '@/shared/ui/form';
+import { DEFAULT_PARAMS_INPUT } from '../../constants';
 
 export interface BaseInputConfig<T> {
   component: string | unknown;
@@ -11,11 +10,7 @@ export interface BaseInputConfig<T> {
   isValid(): boolean;
 }
 
-export abstract class ABaseInput {
-   component: string | unknown = 'input';
-
-  value?: string = DEFAULT_PARAMS_INPUT.value;
-
+export abstract class InputFormAbstract {
   hint?: string = DEFAULT_PARAMS_INPUT.hint;
 
   label?: string = DEFAULT_PARAMS_INPUT.label;
@@ -29,7 +24,6 @@ export abstract class ABaseInput {
   allowValidate = false
 
   protected constructor(data: Partial<InputPrams<string>> = DEFAULT_PARAMS_INPUT) {
-    this.value = data.value;
     this.hint = data.hint;
     this.label = data.label;
     this.placeholder = data.placeholder || data.label;
@@ -37,8 +31,8 @@ export abstract class ABaseInput {
     this.inputValidator = new InputValidator(this.rules);
   }
 
-  getValue(): void {
-    throw new Error('Method not implemented.');
+  getValue() {
+    throw new Error('Should been implemented getValue');
   }
 
   isValid(): boolean {
@@ -50,11 +44,7 @@ export abstract class ABaseInput {
     this.allowValidate = value;
   }
 
-  resetValue() {
-    this.value = '';
-  }
-
-  setComponent(component: string | unknown) {
-    this.component = component;
+  resetValue(): void {
+    throw Error('Should been implemented resetValue');
   }
 }

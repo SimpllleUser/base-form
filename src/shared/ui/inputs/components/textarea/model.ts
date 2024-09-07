@@ -1,7 +1,6 @@
 import { markRaw } from 'vue';
-import { TextInput } from '@/shared/ui/inputs/models/TextInput';
+import { TextInput } from '../text/model';
 import BaseInputTextarea from './BaseInputTextarea.vue';
-// import { InputPrams } from 's/shared/ui/form';
 import { InputPrams } from '../../../form';
 
 export interface AdditionalTextareaInputParams {

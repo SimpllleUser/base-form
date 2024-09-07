@@ -3,14 +3,14 @@ import {
 } from 'vue';
 import { cloneDeep, forOwn } from 'lodash';
 import type { DefaultFormConfig } from './types';
-import { ABaseInput, BaseInputConfig } from '../../inputs/models/BaseInput';
+import { InputFormAbstract, BaseInputConfig } from '../../inputs/components/input-form/model';
 import { ListInput } from '../../inputs/models/ListInput';
 import { ActionForm, FormParams } from '../../form/BaseForm';
 
-const isActualInstance = (item: unknown): boolean => item instanceof ABaseInput || item instanceof ListInput;
-const callActionByTree = (item: unknown, callback: (input: ABaseInput) => void) => {
+const isActualInstance = (item: unknown): boolean => item instanceof InputFormAbstract || item instanceof ListInput;
+const callActionByTree = (item: unknown, callback: (input: InputFormAbstract) => void) => {
   if (isActualInstance(item)) {
-    callback(item as ABaseInput);
+    callback(item as InputFormAbstract);
   }
   if (typeof item === 'object' && item !== null) {
     forOwn(item as Record<string, unknown>, (value) => {
@@ -55,10 +55,10 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
   const defaultValue = cloneDeep(config);
   const form = ref(config) as Ref<T>;
 
-  const makeActionForAllInputs = (callback: (input: ABaseInput) => void) => {
+  const makeActionForAllInputs = (callback: (input: InputFormAbstract) => void) => {
     const unwrappedForm = unref(form);
     forOwn(unwrappedForm, (formItem) => {
-      callActionByTree(formItem, (item: ABaseInput) => {
+      callActionByTree(formItem, (item: InputFormAbstract) => {
         callback(item);
       });
     });

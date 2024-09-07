@@ -1,4 +1,4 @@
-import { ABaseInput } from '@/shared/ui/inputs/models/BaseInput';
+import { InputFormAbstract } from '@/shared/ui/inputs/components/input-form/model';
 import { ListInput } from '@/shared/ui/inputs/models/ListInput';
 import { InputConfigurator } from './InputConfigurator';
 import { ITextarea, textarea } from '../components/textarea';
@@ -8,7 +8,7 @@ import {
 } from '../components/toggle-state-input';
 
 type InputsOfConfig = IText & ITextarea & ISwitch & ICheck & {
-  list: <T extends Record<string, ABaseInput>>(items: Array<T>, item: T) => ListInput<T>
+  list: <T extends Record<string, InputFormAbstract>>(items: Array<T>, item: T) => ListInput<T>
   // check: (params?: ToggleCheckInputParams) => ToggleCheckInput
 }
 
