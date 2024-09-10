@@ -1,6 +1,7 @@
 import input from '../../shared/ui/inputs/config';
 import { TextInput } from '../../shared/ui/inputs/components/text';
 import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/model';
+import { SelectInput, select } from '../../shared/ui/inputs/components/select';
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -66,6 +67,8 @@ export class TestForm implements IForm {
 
   checker: ToggleCheckInput
 
+  select: SelectInput
+
   // list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
@@ -77,5 +80,11 @@ export class TestForm implements IForm {
     });
     this.switcher = input.switch({ label: 'Switcher' });
     this.checker = input.check({ label: 'Checker' });
+    this.select = input.select({
+      multiple: true,
+      value: [{ name: 'three', id: '3' }],
+      options: [
+        { name: 'one', id: '1' }, { name: 'two', id: '2' }, { name: 'three', id: '3' }],
+    });
   }
 }

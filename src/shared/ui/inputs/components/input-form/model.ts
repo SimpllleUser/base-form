@@ -20,23 +20,23 @@ export interface BaseInputConfig<T> {
 }
 
 export abstract class InputFormAbstract {
-  hint?: string = DEFAULT_PARAMS_INPUT.hint;
+  hint: string = DEFAULT_PARAMS_INPUT.hint;
 
-  label?: string = DEFAULT_PARAMS_INPUT.label;
+  label: string = DEFAULT_PARAMS_INPUT.label;
 
-  placeholder?: string = DEFAULT_PARAMS_INPUT.label;
+  placeholder: string = DEFAULT_PARAMS_INPUT.label;
 
-  rules?: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
+  rules: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
 
   inputValidator: InputValidator<unknown>
 
   allowValidate = false
 
   protected constructor(data: Partial<InputFormFundamentalFields<string>> = DEFAULT_PARAMS_INPUT) {
-    this.hint = data.hint;
-    this.label = data.label;
-    this.placeholder = data.placeholder || data.label;
-    this.rules = data.rules;
+    this.hint = data?.hint || '';
+    this.label = data?.label || '';
+    this.placeholder = data?.placeholder || data?.label || '';
+    this.rules = data.rules || {};
     this.inputValidator = new InputValidator(this.rules);
   }
 

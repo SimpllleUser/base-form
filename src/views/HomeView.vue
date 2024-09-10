@@ -32,6 +32,7 @@ const useEntity = (data: any) => new TestForm(data);
         @on-submit="onSubmit"
       >
         <template #default="{ form }: { form: TestForm }">
+          <InputForm v-model="form.select" />
           <InputForm v-model="form.checker" />
           <InputForm v-model="form.switcher" />
           <InputForm v-model="form.header" />
