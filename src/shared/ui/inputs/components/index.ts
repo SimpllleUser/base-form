@@ -1,3 +1,5 @@
-export { default as BaseInput } from './BaseInput.vue';
-export { default as BaseInputText } from './BaseInputText.vue';
-export { default as ListInput } from './ListInput.vue';
+export * from './text';
+export * from './textarea';
+export * from './input-list';
+export * from './input-form';
+export * from './toggle-state-input';

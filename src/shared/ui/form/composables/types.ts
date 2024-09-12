@@ -1,13 +1,14 @@
 import { ValidationParams } from '../../../lib/input-validator/types';
-import { ABaseInput } from '../../inputs/models/BaseInput';
+import { InputFormAbstract } from '../../inputs/components/input-form/model';
 
-export interface InputPrams<T = string> {
+export interface InputFormFundamentalFields<T = string> {
     value: T;
     label: string;
+    placeholder: string;
     hint: string;
     rules: Partial<ValidationParams> | object;
 }
 
-export type InputConfig = InputPrams & { component: string; type?: string }
+export type InputConfig = InputFormFundamentalFields & { component: string; type?: string }
 
-export type DefaultFormConfig = Record<string, ABaseInput>
+export type DefaultFormConfig = Record<string, InputFormAbstract>

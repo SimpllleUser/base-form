@@ -1,7 +1,7 @@
 import { cloneDeep, forOwn, has } from 'lodash';
-import type { ABaseInput } from './BaseInput';
+import type { InputFormAbstract } from '../input-form';
 
-export interface IListInput<T> {
+export interface IInputList<T> {
   items: Array<T>;
   allowValidate: boolean;
 
@@ -11,7 +11,7 @@ export interface IListInput<T> {
   canValidate: boolean;
 }
 
-export class ListInput<T extends Record<string, ABaseInput>> implements IListInput<T> {
+export class InputList<T extends Record<string, InputFormAbstract>> implements IInputList<T> {
   items: Array<T>;
 
   allowValidate = false;
@@ -76,7 +76,7 @@ export class ListInput<T extends Record<string, ABaseInput>> implements IListInp
  private getItemForCreate(): T {
    const cleanedItem: T = cloneDeep(this.items[0]);
 
-   forOwn(cleanedItem, (item: ABaseInput) => {
+   forOwn(cleanedItem, (item: InputFormAbstract) => {
      item.resetValue();
    });
 

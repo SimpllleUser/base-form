@@ -40,15 +40,19 @@ const showButtonAction = computed(() => !formConfig.value.isActionNone(props?.pa
 </script>
 
 <template>
-  <div>
-    <h1>Base form</h1>
-    <slot :form="formConfig.form"/>
-  </div>
-  <div class="actions">
-    <slot name="actions" >
-      <button
-        v-if="showButtonAction"
-        @click="formConfig.submitForm(onSubmit)">{{ submitButtonLabel }}</button>
-    </slot>
-  </div>
+  <VForm @submit.prevent>
+    <div>
+      <h1>Base form</h1>
+      <slot :form="formConfig.form"/>
+    </div>
+    <div class="actions">
+      <slot name="actions" >
+        <VBtn
+          color="primary"
+          v-if="showButtonAction"
+          @click="formConfig.submitForm(onSubmit)">{{ submitButtonLabel }}</VBtn>
+      </slot>
+    </div>
+  </VForm>
+
 </template>

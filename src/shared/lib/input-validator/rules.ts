@@ -121,7 +121,7 @@ export const rules: ValidationFunctionMap = {
 
   regex: ({ value, regex }: DefaultParamWith<{ regex: RegExp }>): ValidationResult => regex.test(value) || 'Неверный формат',
 
-  required: ({ value }: DefaultParam): ValidationResult => !!value || 'Обязательное поле',
+  required: ({ value }: DefaultParam): ValidationResult => Boolean(value?.length) || Boolean(value) || 'Обязательное поле',
 
   requiredIf: ({
     value,
