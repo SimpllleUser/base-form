@@ -33,5 +33,6 @@ const input = computed({
     :append-icon="input.appendIcon"
     :prepend-icon-icon="input.prependIcon"
     :placeholder="input.placeholder"
+    hide-details
   />
 </template>

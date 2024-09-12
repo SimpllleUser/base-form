@@ -46,14 +46,12 @@ export class ToggleCheckInput extends InputFormAbstract {
    }
 
    isValid(): boolean {
-     return true;
+     if (!this.allowValidate) return true;
+     return this.inputValidator.isValid(this.getValue());
    }
 
    getErrors(): string {
-     return '';
-   }
-
-   resetValue() {
-     this.value = false;
+     if (!this.allowValidate) return '';
+     return this.inputValidator.getErrors(this.getValue());
    }
 }

@@ -38,13 +38,16 @@ export class SelectInput extends InputFormAbstract {
 
   options: Array<OptionItem>
 
+  allowValidate = false
+
   constructor(data: InputSelectorParams) {
     super({
       label: data?.label || '',
       placeholder: data?.placeholder || '',
       hint: data?.hint || '',
+      rules: data.rules,
     });
-    this.value = this.getInputValue(data || {});
+    this.value = this.getInputValue(data);
     this.multiple = Boolean(data?.multiple);
     this.clearable = Boolean(data?.clearable);
     this.chips = Boolean(data?.chips);
@@ -57,5 +60,19 @@ export class SelectInput extends InputFormAbstract {
     return Array.isArray(data.value)
       ? data.value.map(({ id }) => id)
       : data.value.id;
+  }
+
+  getValue(): string | Array<string> {
+    return this.value;
+  }
+
+  isValid(): boolean {
+    if (!this.allowValidate) return true;
+    return this.inputValidator.isValid(this.getValue());
+  }
+
+  getErrors(): string {
+    if (!this.allowValidate) return '';
+    return this.inputValidator.getErrors(this.getValue());
   }
 }

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { computed, defineProps, defineEmits } from 'vue';
-import { ToggleCheckInput } from '../ToggleCheckInput';
+import { ToggleCheckInput } from '../model';
 
 interface Props {
   modelValue: ToggleCheckInput
@@ -27,5 +27,6 @@ const input = computed({
     :append-icon="input.appendIcon"
     :prepend-icon-icon="input.prependIcon"
     :placeholder="input.placeholder"
+    hide-details
   />
 </template>

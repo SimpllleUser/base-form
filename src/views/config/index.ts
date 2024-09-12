@@ -79,9 +79,10 @@ export class TestForm implements IForm {
       label: 'Header label',
     });
     this.switcher = input.switch({ label: 'Switcher' });
-    this.checker = input.check({ label: 'Checker' });
+    this.checker = input.check({ label: 'Checker', rules: { required: true } });
     this.select = input.select({
       multiple: true,
+      rules: { required: true, length: 2 },
       value: [{ name: 'three', id: '3' }],
       options: [
         { name: 'one', id: '1' }, { name: 'two', id: '2' }, { name: 'three', id: '3' }],
