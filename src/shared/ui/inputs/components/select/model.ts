@@ -1,6 +1,6 @@
 import { markRaw } from 'vue';
-import { InputFormAbstract } from '@/shared/ui/inputs';
-import { InputFormFundamentalFields } from '@/shared/ui/form';
+import { InputFormAbstract } from '../../../../../shared/ui/inputs';
+import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 import BaseSelect from './BaseSelect.vue';
 
 export interface InputSelectValue {

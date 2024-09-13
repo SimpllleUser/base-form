@@ -3,7 +3,7 @@ import {
   defineProps, defineEmits, onMounted, computed, ref, watch,
 } from 'vue';
 import { OnSubmitPayload, useForm } from '../../index';
-import { ActionForm } from '@/shared/ui/form/BaseForm/types';
+import { ActionForm } from '../../../../../shared/ui/form/BaseForm/types';
 
 interface Props {
   config: unknown;

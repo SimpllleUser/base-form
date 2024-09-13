@@ -6,7 +6,7 @@ import { IInputList, inputList } from '../components/input-list';
 import {
   ISwitch, switchInput, ICheck, check,
 } from '../components/toggle-state-input';
-import { ISelect, select } from '@/shared/ui/inputs/components/select';
+import { ISelect, select } from '../../../../shared/ui/inputs/components/select';
 
 type InputsOfConfig = IText & ITextarea & ISwitch & ICheck & IInputList & ISelect
 

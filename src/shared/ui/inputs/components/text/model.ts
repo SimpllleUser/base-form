@@ -1,10 +1,10 @@
 import { markRaw } from 'vue';
-import { InputValidator } from '@/shared/lib/input-validator';
-import { InputFormFundamentalFields } from '@/shared/ui/form';
+import { InputValidator } from '../../../../../shared/lib/input-validator';
+import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 
 import BaseInputText from './BaseInputText.vue';
-import { Icon } from '@/core/types/icons';
-import { InputFormAbstract } from '@/shared/ui/inputs/components/input-form/model';
+import { Icon } from '../../../../../core/types/icons';
+import { InputFormAbstract } from '../../../../../shared/ui/inputs/components/input-form/model';
 
 export interface AdditionalTextInputParams {
   clearable: boolean,

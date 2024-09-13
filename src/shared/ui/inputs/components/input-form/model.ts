@@ -1,5 +1,5 @@
-import { InputValidator, ValidationParams } from '@/shared/lib/input-validator';
-import { InputFormFundamentalFields } from '@/shared/ui/form';
+import { InputValidator, ValidationParams } from '../../../../../shared/lib/input-validator';
+import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 import { DEFAULT_PARAMS_INPUT } from '../../constants';
 
 interface InputFormParamsFields {
