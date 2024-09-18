@@ -118,9 +118,7 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     .fromEntries(Object
       .entries(form.value)
       .map(([key, input]) => [
-        key, isActualInstance(input)
-          ? input?.getValue()
-          : input,
+        key, input.getValue ? input?.getValue() : input,
       ])) as T;
 
   return {

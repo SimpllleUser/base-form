@@ -20,6 +20,8 @@ export interface BaseInputConfig<T> {
 }
 
 export abstract class InputFormAbstract {
+  value: unknown
+
   hint: string = DEFAULT_PARAMS_INPUT.hint;
 
   label: string = DEFAULT_PARAMS_INPUT.label;
@@ -40,7 +42,7 @@ export abstract class InputFormAbstract {
     this.inputValidator = new InputValidator(this.rules);
   }
 
-  getValue() {
+  getValue(): unknown {
     throw new Error('Should been implemented getValue');
   }
 
