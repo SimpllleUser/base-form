@@ -19,7 +19,7 @@ export interface BaseInputConfig<T> {
   isValid(): boolean;
 }
 
-export abstract class InputFormAbstract {
+export class InputFormAbstract {
   value: unknown
 
   hint: string = DEFAULT_PARAMS_INPUT.hint;
