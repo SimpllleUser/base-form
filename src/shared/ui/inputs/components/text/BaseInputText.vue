@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import { computed, defineProps, defineEmits } from 'vue';
 import { TextInput } from './model';
-import type { ABaseInput } from '../../models/BaseInput';
 
 interface Props {
   modelValue: TextInput
 }
 
 interface Emits {
-  (event: 'update:modelValue', payload: ABaseInput): void
+  (event: 'update:modelValue', payload: TextInput): void
 }
 
 const props = defineProps<Props>();
