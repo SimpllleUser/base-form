@@ -1,10 +1,8 @@
 import { markRaw } from 'vue';
 import { InputValidator } from '../../../../../shared/lib/input-validator';
 import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
-
 import BaseInputText from './BaseInputText.vue';
 import { Icon } from '../../../../../core/types/icons';
-import { InputFormAbstract } from '../../../../../shared/ui/inputs/components/input-form/model';
 
 export interface AdditionalTextInputParams {
   clearable: boolean,
@@ -19,7 +17,7 @@ export interface AdditionalTextInputParams {
 
 export type TextInputParams = Partial<InputFormFundamentalFields<string> & AdditionalTextInputParams>
 
-export class TextInput extends InputFormAbstract {
+export class TextInput {
    component: unknown = markRaw(BaseInputText);
 
    value = ''
@@ -35,7 +33,11 @@ export class TextInput extends InputFormAbstract {
   suffix: string;
 
   constructor(data?: TextInputParams) {
-    super(data);
+    this.hint = data?.hint || '';
+    this.label = data?.label || '';
+    this.placeholder = data?.placeholder || data?.label || '';
+    this.rules = data.rules || {};
+    ////
     this.value = data?.value ?? '';
     this.clearable = data?.clearable ?? false;
     this.appendInnerIcon = data?.appendInnerIcon || null;
@@ -66,3 +68,7 @@ export class TextInput extends InputFormAbstract {
     return this;
   }
 }
+
+// interface TextInput extends InputFormAbstract {}
+//
+// applyMixins(TextInput, [InputFormAbstract]);

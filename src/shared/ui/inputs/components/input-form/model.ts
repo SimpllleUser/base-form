@@ -19,7 +19,15 @@ export interface BaseInputConfig<T> {
   isValid(): boolean;
 }
 
-export abstract class InputFormAbstract {
+export function applyMixins(derivedCtor: any, baseCtors: any[]) {
+  baseCtors.forEach(baseCtor => {
+    Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+      derivedCtor.prototype[name] = baseCtor.prototype[name];
+    });
+  });
+}
+
+export class InputFormAbstract {
   value: unknown
 
   hint: string = DEFAULT_PARAMS_INPUT.hint;

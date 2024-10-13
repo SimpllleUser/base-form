@@ -1,22 +1,14 @@
 import { markRaw } from 'vue';
 import { Nullable } from '../../../../../core/types/common';
-import { InputFormAbstract, InputFormParams } from '../../../../../shared/ui/inputs';
 import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 import { Icon } from '../../../../../core/types/icons';
+import {InputValidator} from "../../../../lib/input-validator";
 
 export type ToggleCheckInputParams = Partial<InputFormFundamentalFields<boolean> & {
   appendIcon: Nullable<Icon>
   prependIcon: Nullable<Icon>
 }>
-
-const getInputFormParams = (data: ToggleCheckInputParams): InputFormParams => ({
-  hint: data?.hint || '',
-  label: data?.label || '',
-  rules: data?.rules || {},
-  placeholder: data?.placeholder || '',
-});
-
-export class ToggleCheckInput extends InputFormAbstract {
+export class ToggleCheckInput {
   component: unknown
 
    value: boolean;
@@ -30,7 +22,11 @@ export class ToggleCheckInput extends InputFormAbstract {
    color = 'primary'
 
    constructor(component: object, data: ToggleCheckInputParams) {
-     super(getInputFormParams(data));
+     this.hint = data?.hint || '';
+     this.label = data?.label || '';
+     this.placeholder = data?.placeholder || data?.label || '';
+     this.rules = data.rules || {};
+     this.inputValidator = new InputValidator(this.rules);
      this.component = markRaw(component);
      this.value = Boolean(data?.value);
      this.appendIcon = data?.appendIcon ?? null;

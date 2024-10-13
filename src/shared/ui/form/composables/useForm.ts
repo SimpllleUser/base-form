@@ -1,13 +1,11 @@
-import {
-  computed, ComputedRef, ref, type Ref, unref,
-} from 'vue';
-import { cloneDeep, forOwn } from 'lodash';
+import { computed, reactive} from 'vue';
+import {cloneDeep, forOwn, has} from 'lodash';
 import type { DefaultFormConfig } from './types';
 import { InputFormAbstract, BaseInputConfig } from '../../inputs/components/input-form/model';
 import { ActionForm, FormParams } from '../../form/BaseForm';
-import { InputList } from '../../inputs/components/input-list/model';
+// import { InputList } from '../../inputs/components/input-list/model';
 
-const isActualInstance = (item: unknown): boolean => item instanceof InputFormAbstract || item instanceof InputList;
+const isActualInstance = (item: unknown): boolean => has(item,'component');
 const callActionByTree = (item: unknown, callback: (input: InputFormAbstract) => void) => {
   if (isActualInstance(item)) {
     callback(item as InputFormAbstract);
@@ -39,25 +37,24 @@ const getStateMethodOfItemForm = <T>(
 };
 
 export interface IUseForm<T> {
-  form: Ref<T>,
+  form: T,
   validate: CallableFunction,
   resetForm: CallableFunction,
   clearForm: CallableFunction,
   submitForm: CallableFunction,
-  isValid: ComputedRef<boolean>
-  getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean })
-  getAction: (params: FormParams) => ActionForm
-  isActionNone: (params: FormParams) => boolean
-  getValue: <T extends Record<string, unknown>> () => T
+  isValid: boolean,
+  getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean }),
+  getAction: (params: FormParams) => ActionForm,
+  isActionNone: (params: FormParams) => boolean,
+  getValue: <T extends Record<string, unknown>> () => T,
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
   const defaultValue = cloneDeep(config);
-  const form = ref(config) as Ref<T>;
+  const form = reactive(config) as T;
 
   const makeActionForAllInputs = (callback: (input: InputFormAbstract) => void) => {
-    const unwrappedForm = unref(form);
-    forOwn(unwrappedForm, (formItem) => {
+    forOwn(form, (formItem) => {
       callActionByTree(formItem, (item: InputFormAbstract) => {
         callback(item);
       });
@@ -85,13 +82,13 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
   };
 
   const resetForm = () => {
-    form.value = cloneDeep(defaultValue);
+    Object.assign(form, cloneDeep(defaultValue));
     setStateValidation(false);
   };
 
   const isValid = computed(() => {
     const states: Array<boolean> = [];
-    getStateMethodOfItemForm(form.value, 'isValid', (state: boolean) => {
+    getStateMethodOfItemForm(form, 'isValid', (state: boolean) => {
       states.push(state);
     });
     return states.every(Boolean);
@@ -116,7 +113,7 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
 
   const getValue = <T extends object>(): T => Object
     .fromEntries(Object
-      .entries(form.value)
+      .entries(form)
       .map(([key, input]) => [
         key, input.getValue ? input?.getValue() : input,
       ])) as T;
@@ -131,6 +128,6 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     getAction,
     isActionNone,
     getValue,
-    isValid,
+    isValid: isValid.value,
   };
 }

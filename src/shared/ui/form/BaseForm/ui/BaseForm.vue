@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  defineProps, defineEmits, onMounted, computed, ref, watch,
+  defineProps, defineEmits, onMounted, computed, watch, reactive,
 } from 'vue';
 import { OnSubmitPayload, useForm } from '../../index';
 import { ActionForm } from '../../../../../shared/ui/form/BaseForm/types';
@@ -18,25 +18,26 @@ const emit = defineEmits<Emits>();
 
 const props = defineProps<Props>();
 
-const formConfig = ref(useForm(props.config));
+const formConfig = reactive(useForm(props.config));
+
 watch(() => props.config, (newConfig) => {
-  formConfig.value = useForm(newConfig);
+  Object.assign(formConfig, useForm(newConfig));
 }, { deep: true });
 
 const onSubmit = (isValid: boolean): void => {
   emit('on-submit', {
-    value: formConfig.value.getValue(),
+    value: formConfig.getValue(),
     isValid,
-    ...formConfig.value.getActionStates(props.params),
+    ...formConfig.getActionStates(props.params),
   });
 };
 
 onMounted(() => {
-  formConfig.value.resetForm();
+  formConfig.resetForm();
 });
 
-const submitButtonLabel = computed(() => formConfig.value.getAction(props?.params || {}));
-const showButtonAction = computed(() => !formConfig.value.isActionNone(props?.params || {}));
+const submitButtonLabel = computed(() => formConfig.getAction(props?.params || {}));
+const showButtonAction = computed(() => !formConfig.isActionNone(props?.params || {}));
 </script>
 
 <template>
@@ -54,5 +55,4 @@ const showButtonAction = computed(() => !formConfig.value.isActionNone(props?.pa
       </slot>
     </div>
   </VForm>
-
 </template>
