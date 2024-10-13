@@ -4,6 +4,7 @@ import {
 } from 'vue';
 import { OnSubmitPayload, useForm } from '../../index';
 import { ActionForm } from '../../../../../shared/ui/form/BaseForm/types';
+import { Colors } from '../../../../../core/types/vuetify';
 
 interface Props {
   config: unknown;
@@ -41,16 +42,22 @@ const showButtonAction = computed(() => !formConfig.value.isActionNone(props?.pa
 
 <template>
   <VForm @submit.prevent>
-    <div>
-      <h1>Base form</h1>
+    <div class="form-body">
       <slot :form="formConfig.form"/>
     </div>
     <div class="actions">
       <slot name="actions" >
         <VBtn
-          color="primary"
+          :color="Colors.Primary"
           v-if="showButtonAction"
-          @click="formConfig.submitForm(onSubmit)">{{ submitButtonLabel }}</VBtn>
+          @click="formConfig.submitForm(onSubmit)">{{ submitButtonLabel }}
+        </VBtn>
+<!--        <VBtn
+          class="ml-6"
+          :color="Colors.Primary"
+          :variant="Variants.Outlined"
+          v-if="showButtonAction">Cancel
+        </VBtn>-->
       </slot>
     </div>
   </VForm>
