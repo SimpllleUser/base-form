@@ -41,5 +41,6 @@ const onInput = (event: Event) => {
     :max-rows="input.maxRows"
     :no-resize="input.noResize"
     @input="onInput"
+    hide-details
   />
 </template>
