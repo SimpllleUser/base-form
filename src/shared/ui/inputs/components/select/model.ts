@@ -1,7 +1,8 @@
 import { markRaw } from 'vue';
-import { InputFormAbstract } from '../../../../../shared/ui/inputs';
+import {DEFAULT_PARAMS_INPUT} from '../../../../../shared/ui/inputs';
 import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 import BaseSelect from './BaseSelect.vue';
+import { InputValidator } from '../../../../../shared/lib/input-validator';
 
 export interface InputSelectValue {
   name: string;
@@ -21,8 +22,18 @@ export type InputSelectorParams = Partial<InputFormFundamentalFields<InputSelect
   chips: boolean
 }> & { options: Array<OptionItem> }
 
-export class SelectInput extends InputFormAbstract {
+export class SelectInput {
   value: SelectorInputValue
+  hint: string = DEFAULT_PARAMS_INPUT.hint;
+
+  label: string = DEFAULT_PARAMS_INPUT.label;
+
+  placeholder: string = DEFAULT_PARAMS_INPUT.label;
+
+  rules: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
+
+  inputValidator: InputValidator<unknown>
+
 
   component = markRaw(BaseSelect)
 
@@ -41,12 +52,12 @@ export class SelectInput extends InputFormAbstract {
   allowValidate = false
 
   constructor(data: InputSelectorParams) {
-    super({
-      label: data?.label || '',
-      placeholder: data?.placeholder || '',
-      hint: data?.hint || '',
-      rules: data.rules,
-    });
+    this.hint = data?.hint || '';
+    this.label = data?.label || '';
+    this.placeholder = data?.placeholder || data?.label || '';
+    this.rules = data.rules || {};
+    this.inputValidator = new InputValidator(this.rules);
+    //////
     this.value = this.getInputValue(data);
     this.multiple = Boolean(data?.multiple);
     this.clearable = Boolean(data?.clearable);
@@ -69,6 +80,10 @@ export class SelectInput extends InputFormAbstract {
   isValid(): boolean {
     if (!this.allowValidate) return true;
     return this.inputValidator.isValid(this.getValue());
+  }
+
+  set canValidate(value: boolean) {
+    this.allowValidate = value;
   }
 
   getErrors(): string {
