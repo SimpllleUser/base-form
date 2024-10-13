@@ -1,13 +1,12 @@
 import {
   computed, ComputedRef, ref, type Ref, unref,
 } from 'vue';
-import { cloneDeep, forOwn } from 'lodash';
+import {cloneDeep, forOwn, has} from 'lodash';
 import type { DefaultFormConfig } from './types';
 import { InputFormAbstract, BaseInputConfig } from '../../inputs/components/input-form/model';
 import { ActionForm, FormParams } from '../../form/BaseForm';
-import { InputList } from '../../inputs/components/input-list/model';
 
-const isActualInstance = (item: unknown): boolean => item instanceof InputFormAbstract || item instanceof InputList;
+const isActualInstance = (item: unknown): boolean => has(item, 'isCustomInput');
 const callActionByTree = (item: unknown, callback: (input: InputFormAbstract) => void) => {
   if (isActualInstance(item)) {
     callback(item as InputFormAbstract);

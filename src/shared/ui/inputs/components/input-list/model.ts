@@ -12,6 +12,7 @@ export interface IInputList<T> {
 }
 
 export class InputList<T extends Record<string, InputFormAbstract>> implements IInputList<T> {
+  isCustomInput = true
   items: Array<T>;
 
   allowValidate = false;

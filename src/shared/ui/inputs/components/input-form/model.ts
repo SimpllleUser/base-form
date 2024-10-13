@@ -20,6 +20,7 @@ export interface BaseInputConfig<T> {
 }
 
 export abstract class InputFormAbstract {
+  isCustomInput = true
   value: unknown
 
   hint: string = DEFAULT_PARAMS_INPUT.hint;
