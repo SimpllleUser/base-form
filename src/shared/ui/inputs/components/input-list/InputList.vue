@@ -2,8 +2,8 @@
 import { computed, defineProps, defineEmits } from 'vue';
 import { InputFormAbstract } from '../input-form/model';
 import { ListInput } from './model';
-import {Colors, Sizes, Variants} from "@/core/types/vuetify";
-import {InputForm} from "@/shared/ui/inputs";
+import { Colors, Sizes, Variants } from '../../../../../core/types/vuetify';
+import { InputForm } from '../../../../../shared/ui/inputs';
 
 interface Props {
     modelValue: ListInput<InputFormAbstract>
