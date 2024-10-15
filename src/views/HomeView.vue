@@ -7,6 +7,7 @@ import {
 } from '../shared/ui/form/BaseForm';
 import { ITestFormData, TestForm } from './config';
 import { InputForm } from '../shared/ui/inputs/components/input-form';
+import InputList from "@/shared/ui/inputs/components/input-list/InputList.vue";
 
 const onSubmit = (params: OnSubmitPayload<ITestFormData>) => {
   console.log(params.value);
@@ -36,6 +37,9 @@ const useEntity = (data: any) => new TestForm(data);
           <InputForm v-model="form.checker" />
           <InputForm v-model="form.switcher" />
           <InputForm v-model="form.header" />
+          <hr>
+          <InputList v-model="form.list" />
+          <hr>
         </template>
       </BaseForm>
     </div>

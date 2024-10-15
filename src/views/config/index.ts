@@ -2,6 +2,7 @@ import input from '../../shared/ui/inputs/config';
 import { TextInput } from '../../shared/ui/inputs/components/text';
 import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/model';
 import { SelectInput, select } from '../../shared/ui/inputs/components/select';
+import {da} from "vuetify/locale";
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -13,7 +14,7 @@ const getInputRowDefault = (): IListItem => ({
     label: 'Label',
     hint: 'Hint',
   }),
-  description: input.text({
+  description: input.textarea({
     value: '',
     label: 'Label description',
     hint: 'Hint description',
@@ -47,6 +48,17 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
   },
 ];
 
+const getListData = (data: Array<IListItem>): unknown => data.map((item) => ({
+  title: input.text({
+    value: item.text,
+    label: 'Title',
+  }),
+  select: input.textarea({
+    value: item.description,
+    label: 'Description',
+  }),
+}))
+
 export interface ITestFormData {
   header: string;
   list: IListItem[];
@@ -55,7 +67,7 @@ export interface ITestFormData {
 interface IForm {
   header: TextInput;
   checker: ToggleCheckInput
-  // list: ListInput<IListItem>;
+  list: ListInput<IListItem>;
 }
 
 export class TestForm implements IForm {
@@ -69,7 +81,7 @@ export class TestForm implements IForm {
 
   select: SelectInput
 
-  // list: ListInput<IListItem>
+  list: ListInput<IListItem>
 
   constructor(data?: ITestFormData) {
     this.id = 'test-id';
@@ -78,6 +90,8 @@ export class TestForm implements IForm {
       rules: { length: 5 },
       label: 'Header label',
     });
+    // this.list = getInputRowDefault;
+    this.list = input.list(ITEMS_LIST, getInputRowDefault())
     this.switcher = input.switch({ label: 'Switcher' });
     this.checker = input.check({ label: 'Checker', rules: { required: true } });
     this.select = input.select({
