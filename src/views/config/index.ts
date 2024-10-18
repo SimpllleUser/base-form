@@ -1,8 +1,7 @@
 import input from '../../shared/ui/inputs/config';
 import { TextInput } from '../../shared/ui/inputs/components/text';
 import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/model';
-import { SelectInput, select } from '../../shared/ui/inputs/components/select';
-import {da} from "vuetify/locale";
+import { SelectInput } from '../../shared/ui/inputs/components/select';
 
 type FieldsOfRecord = 'text' | 'description'
 
@@ -13,51 +12,58 @@ const getInputRowDefault = (): IListItem => ({
     value: '',
     label: 'Label',
     hint: 'Hint',
+    rules: { required: true }
   }),
   description: input.textarea({
     value: '',
     label: 'Label description',
     hint: 'Hint description',
+    rules: { required: true }
   }),
 });
 
 const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
   {
+    id: '1',
     text: input.text({
       value: 'Some text',
       label: 'Label',
       hint: 'Hint',
+      rules: { required: true }
     }),
-    description: input.text({
+    description: input.textarea({
       value: 'Some text description',
       label: 'Label description',
       hint: 'Hint description',
+      rules: { required: true }
     }),
   },
   {
+    id: '2',
     text: input.text({
       value: 'Some text',
       label: 'Label',
       hint: 'Hint',
     }),
-    description: input.text({
+    description: input.textarea({
       value: 'Some text description',
       label: 'Label description',
       hint: 'Hint description',
+      rules: { required: true }
     }),
   },
 ];
 
-const getListData = (data: Array<IListItem>): unknown => data.map((item) => ({
-  title: input.text({
-    value: item.text,
-    label: 'Title',
-  }),
-  select: input.textarea({
-    value: item.description,
-    label: 'Description',
-  }),
-}))
+// const getListData = (data: Array<IListItem>): unknown => data.map((item) => ({
+//   title: input.text({
+//     value: item.text,
+//     label: 'Title',
+//   }),
+//   select: input.textarea({
+//     value: item.description,
+//     label: 'Description',
+//   }),
+// }))
 
 export interface ITestFormData {
   header: string;

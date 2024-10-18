@@ -10,14 +10,14 @@ import { InputForm } from '../shared/ui/inputs/components/input-form';
 import InputList from "@/shared/ui/inputs/components/input-list/InputList.vue";
 
 const onSubmit = (params: OnSubmitPayload<ITestFormData>) => {
-  console.log(params.value);
+  // console.log(params.value);
 };
 
 const data = ref({ header: '', list: [] });
 
-setTimeout(() => {
-  data.value = { header: '123123123', list: [] };
-}, 2000);
+// setTimeout(() => {
+//   data.value = { header: '123123123', list: [] };
+// }, 2000);
 
 const useEntity = (data: any) => new TestForm(data);
 </script>
@@ -33,6 +33,7 @@ const useEntity = (data: any) => new TestForm(data);
         @on-submit="onSubmit"
       >
         <template #default="{ form }: { form: TestForm }">
+          {{ form.list.items[1].id }}
           <InputForm v-model="form.select" />
           <InputForm v-model="form.checker" />
           <InputForm v-model="form.switcher" />

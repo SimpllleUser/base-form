@@ -27,10 +27,10 @@ const input = computed({
   <component :is="input.component" v-model="input"/>
   <div style="opacity: 1" class="v-messages mt-2" role="alert" aria-live="polite">
     <Transition>
-      <div v-if="input.hint" class="v-messages__message"> {{ input.hint }}</div>
+      <div v-if="!input.isValid()" class="v-messages__message text-error"> {{ input.getErrors() }}</div>
     </Transition>
     <Transition>
-      <div v-if="!input.isValid()" class="v-messages__message text-error"> {{ input.getErrors() }}</div>
+      <div v-if="input.hint" class="v-messages__message mt-2"> {{ input.hint }}</div>
     </Transition>
 
   </div>
