@@ -35,7 +35,8 @@ export class InputList<T extends Record<string, InputFormAbstract>> implements I
  isValid(): boolean {
    return this.items
      ?.map(item => Object.values(item)
-       ?.every((input) => input?.isValid && input?.isValid()))
+       .filter((item) => item.isCustomInput)
+       .every((item) => item.isValid()))
      ?.every(Boolean) || false;
  }
 
