@@ -1,9 +1,7 @@
-import {
-  computed, ComputedRef, ref, type Ref, unref,
-} from 'vue';
-import {cloneDeep, forOwn, has} from 'lodash';
+import { computed, ComputedRef, ref, type Ref, unref } from 'vue';
+import { cloneDeep, forOwn, has } from 'lodash';
 import type { DefaultFormConfig } from './types';
-import { InputFormAbstract, BaseInputConfig } from '../../inputs/components/input-form/model';
+import { BaseInputConfig, InputFormAbstract } from '../../inputs/components/input-form/model';
 import { ActionForm, FormParams } from '../../form/BaseForm';
 
 const isActualInstance = (item: unknown): boolean => has(item, 'isCustomInput');
@@ -21,7 +19,7 @@ const callActionByTree = (item: unknown, callback: (input: InputFormAbstract) =>
 const getStateMethodOfItemForm = <T>(
   item: unknown,
   methodName: keyof BaseInputConfig<T>,
-  callback: CallableFunction,
+  callback: CallableFunction
 ) => {
   if (item && typeof item === 'object') {
     forOwn(item, (subItem: unknown) => {
@@ -38,16 +36,16 @@ const getStateMethodOfItemForm = <T>(
 };
 
 export interface IUseForm<T> {
-  form: Ref<T>,
-  validate: CallableFunction,
-  resetForm: CallableFunction,
-  clearForm: CallableFunction,
-  submitForm: CallableFunction,
-  isValid: ComputedRef<boolean>
-  getActionStates: (params: FormParams) => ({ action: ActionForm, isActionNone: boolean })
-  getAction: (params: FormParams) => ActionForm
-  isActionNone: (params: FormParams) => boolean
-  getValue: <T extends Record<string, unknown>> () => T
+  form: Ref<T>;
+  validate: CallableFunction;
+  resetForm: CallableFunction;
+  clearForm: CallableFunction;
+  submitForm: CallableFunction;
+  isValid: ComputedRef<boolean>;
+  getActionStates: (params: FormParams) => { action: ActionForm; isActionNone: boolean };
+  getAction: (params: FormParams) => ActionForm;
+  isActionNone: (params: FormParams) => boolean;
+  getValue: <T extends Record<string, unknown>>() => T;
 }
 
 export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
@@ -110,15 +108,13 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
 
   const getActionStates = (params: FormParams) => ({
     isActionNone: isActionNone(params),
-    action: getAction(params),
+    action: getAction(params)
   });
 
-  const getValue = <T extends object>(): T => Object
-    .fromEntries(Object
-      .entries(form.value)
-      .map(([key, input]) => [
-        key, input.getValue ? input?.getValue() : input,
-      ])) as T;
+  const getValue = <T extends object>(): T =>
+    Object.fromEntries(
+      Object.entries(form.value).map(([key, input]) => [key, input.getValue ? input?.getValue() : input])
+    ) as T;
 
   return {
     form,
@@ -130,6 +126,6 @@ export function useForm<T extends DefaultFormConfig>(config: T): IUseForm<T> {
     getAction,
     isActionNone,
     getValue,
-    isValid,
+    isValid
   };
 }
