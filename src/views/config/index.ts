@@ -44,6 +44,7 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
       value: 'Some text',
       label: 'Label',
       hint: 'Hint',
+      rules: { required: true }
     }),
     description: input.textarea({
       value: 'Some text description',

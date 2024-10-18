@@ -3,15 +3,15 @@ import { computed, defineProps, defineEmits } from 'vue';
 import { InputFormAbstract } from '../input-form/model';
 import { Colors, Sizes, Variants } from '../../../../../core/types/vuetify';
 import { InputForm } from '../../../../../shared/ui/inputs';
-import {InputList} from "@/shared/ui/inputs/components/input-list/model";
+import { InputList } from "@/shared/ui/inputs/components/input-list/model";
 
 interface Props {
     modelValue: InputList<InputFormAbstract>
   }
 
-  interface Emits {
-    (event: 'update:modelValue', payload: InputList<InputFormAbstract>): void
-  }
+interface Emits {
+  (event: 'update:modelValue', payload: InputList<InputFormAbstract>): void
+}
 
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
