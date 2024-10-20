@@ -3,8 +3,8 @@
   import { InputFormAbstract } from '../input-form/model';
   import { Colors, Sizes, Variants } from '../../../../../core/types/vuetify';
   import { InputForm } from '../../../../../shared/ui/inputs';
-  import { InputList } from '@/shared/ui/inputs/components/input-list/model';
-  import { Icon } from '@/core/types/icons';
+  import { InputList } from '../../../../../shared/ui/inputs/components/input-list/model';
+  import { Icon } from '../../../../../core/types/icons';
 
   interface ListBtnConfig {
     label: string;
