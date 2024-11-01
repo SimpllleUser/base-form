@@ -28,6 +28,15 @@ export class InputList<T extends Record<string, InputFormAbstract>> implements I
     this.items.push(cloneDeep(this.defaultItem));
   }
 
+  addByData(data: Record<string, unknown>): void {
+    const defaultItem = cloneDeep(this.defaultItem);
+    Object.keys(data).forEach((key: string) => {
+      defaultItem[key].value = data[key];
+    });
+
+    this.items.push(defaultItem);
+  }
+
   remove(item: T): void {
     this.items.splice(this.items.indexOf(item), 1);
   }
