@@ -53,6 +53,10 @@
   }));
 
   const getActualRowItems = (rowInput) => Object.keys(rowInput).filter((key) => rowInput[key].isCustomInput);
+
+  const addItem = () => {
+    listData.value.add();
+  };
 </script>
 
 <template>
@@ -60,8 +64,8 @@
     <div class="d-flex justify-space-between" :class="headerClass">
       <div v-if="label">{{ label }}</div>
       <div>
-        <slot :add-item="listData.add" name="btn-add">
-          <VBtn v-bind="addBtnProps" l @click="listData.add()">{{ addBtnProps.label }}</VBtn>
+        <slot :add-item="addItem" name="btn-add">
+          <VBtn v-bind="addBtnProps" @click="addItem()">{{ addBtnProps.label }}</VBtn>
         </slot>
       </div>
     </div>
