@@ -15,7 +15,7 @@
   const useEntity = (data: any) => new TestForm(data);
 
   const addItemListByData = (list: InputList) => {
-    list.addByData({text: '1111', description: '222'});
+    list.addByData({ text: '1111', description: '222' });
   };
 </script>
 
@@ -48,10 +48,19 @@
                 <InputList v-model="form.list" header-class="py-4" label="Dictionary">
                   <template #btn-add="props">
                     <div>
-                      <VBtn @click="props.addItem()">Add by default</VBtn>
+                      <VBtn
+                        class="mr-4"
+                        :color="Colors.Primary"
+                        :variant="Variants.Flat"
+                        @click="addItemListByData(form.list)"
+                        >Add by data</VBtn
+                      >
+                      <VBtn :color="Colors.Primary" :variant="Variants.Outlined" @click="props.addItem()"
+                        >Add by default</VBtn
+                      >
                     </div>
                   </template>
-                  </InputList>
+                </InputList>
                 <VBtn :color="Colors.Primary" :variant="Variants.Outlined" @click="addItemListByData(form.list)"
                   >Add item to list by data</VBtn
                 >
