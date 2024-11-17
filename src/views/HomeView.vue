@@ -46,6 +46,11 @@
                   <InputForm v-model="form.header" />
                 </div>
                 <InputList v-model="form.list" header-class="py-4" label="Dictionary">
+                  <template #label="{ label }">
+                    <div class="text-h6">
+                      {{ label }}
+                    </div>
+                  </template>
                   <template #btn-add="props">
                     <div>
                       <VBtn

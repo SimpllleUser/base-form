@@ -47,7 +47,7 @@
 
   const removeBtnProps = computed(() => ({
     label: 'Remove',
-    color: Colors.Primary,
+    color: Colors.Error,
     size: Sizes.Small,
     variant: Variants.Shaped
   }));
@@ -62,7 +62,9 @@
 <template>
   <div>
     <div class="d-flex justify-space-between" :class="headerClass">
-      <div v-if="label">{{ label }}</div>
+      <div v-if="label">
+        <slot :label="label" name="label">{{ label }}</slot>
+      </div>
       <div>
         <slot :add-item="addItem" name="btn-add">
           <VBtn v-bind="addBtnProps" @click="addItem()">{{ addBtnProps.label }}</VBtn>
