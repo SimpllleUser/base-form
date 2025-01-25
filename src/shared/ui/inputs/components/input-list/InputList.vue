@@ -53,6 +53,7 @@
   }));
 
   const getActualRowItems = (rowInput) => Object.keys(rowInput).filter((key) => rowInput[key].isCustomInput);
+  const isEmptyList = computed(() => !listData.value?.items?.length);
 
   const addItem = () => {
     listData.value.add();
@@ -92,5 +93,8 @@
         </slot>
       </VCol>
     </VRow>
+    <div v-if="isEmptyList">
+      <slot name="empty"></slot>
+    </div>
   </div>
 </template>

@@ -3,9 +3,9 @@ import { TextInput } from '../../shared/ui/inputs/components/text';
 import { ToggleCheckInput } from '../../shared/ui/inputs/components/toggle-state-input/model';
 import { SelectInput } from '../../shared/ui/inputs/components/select';
 
-type FieldsOfRecord = 'text' | 'description'
+type FieldsOfRecord = 'text' | 'description';
 
-type IListItem = Record<FieldsOfRecord, TextInput>
+type IListItem = Record<FieldsOfRecord, TextInput>;
 
 const getInputRowDefault = (): IListItem => ({
   text: input.text({
@@ -19,10 +19,10 @@ const getInputRowDefault = (): IListItem => ({
     label: 'Label description',
     hint: 'Hint description',
     rules: { required: true }
-  }),
+  })
 });
 
-const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
+const ITEMS_LIST: Array<{ text: TextInput; description: TextInput }> = [
   {
     id: '1',
     text: input.text({
@@ -36,7 +36,7 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
       label: 'Label description',
       hint: 'Hint description',
       rules: { required: true }
-    }),
+    })
   },
   {
     id: '2',
@@ -51,8 +51,8 @@ const ITEMS_LIST: Array<{ text: TextInput, description: TextInput }> = [
       label: 'Label description',
       hint: 'Hint description',
       rules: { required: true }
-    }),
-  },
+    })
+  }
 ];
 
 // const getListData = (data: Array<IListItem>): unknown => data.map((item) => ({
@@ -73,32 +73,32 @@ export interface ITestFormData {
 
 interface IForm {
   header: TextInput;
-  checker: ToggleCheckInput
+  checker: ToggleCheckInput;
   list: ListInput<IListItem>;
 }
 
 export class TestForm implements IForm {
   id?: string;
 
-  header: TextInput
+  header: TextInput;
 
-  switcher: ToggleCheckInput
+  switcher: ToggleCheckInput;
 
-  checker: ToggleCheckInput
+  checker: ToggleCheckInput;
 
-  select: SelectInput
+  select: SelectInput;
 
-  list: ListInput<IListItem>
+  list: ListInput<IListItem>;
 
   constructor(data?: ITestFormData) {
     this.id = 'test-id';
     this.header = input.text({
       value: data?.header,
       rules: { length: 5 },
-      label: 'Header label',
+      label: 'Header label'
     });
     // this.list = getInputRowDefault;
-    this.list = input.list(ITEMS_LIST, getInputRowDefault())
+    this.list = input.list(ITEMS_LIST, getInputRowDefault());
     this.switcher = input.switch({ label: 'Switcher' });
     this.checker = input.check({ label: 'Checker', rules: { required: true } });
     this.select = input.select({
@@ -106,7 +106,10 @@ export class TestForm implements IForm {
       rules: { required: true, length: 2 },
       value: [{ name: 'three', id: '3' }],
       options: [
-        { name: 'one', id: '1' }, { name: 'two', id: '2' }, { name: 'three', id: '3' }],
+        { name: 'one', id: '1' },
+        { name: 'two', id: '2' },
+        { name: 'three', id: '3' }
+      ]
     });
   }
 }
