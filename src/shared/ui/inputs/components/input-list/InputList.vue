@@ -18,19 +18,31 @@
     add: ListBtnConfig;
   }
 
+  interface OnItemClassParams {
+    input: InputFormAbstract;
+    key: string;
+    index: number;
+  }
+
   interface Props {
     modelValue: InputList<InputFormAbstract>;
     label?: string;
     config?: IListConfig;
     headerClass?: string;
     rowClass?: string;
+    labelWrapperClass?: string;
+    btnAddWrapperClass?: string;
+    colsRemove?: number;
+    onItemClass?: (params: OnItemClassParams) => string;
   }
 
   interface Emits {
     (event: 'update:modelValue', payload: InputList<InputFormAbstract>): void;
   }
 
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    colsRemove: 2
+  });
   const emit = defineEmits<Emits>();
 
   const listData = computed({
@@ -58,15 +70,17 @@
   const addItem = () => {
     listData.value.add();
   };
+
+  const onClass = (params: OnItemClassParams) => props.onItemClass(params);
 </script>
 
 <template>
   <div>
     <div class="d-flex justify-space-between" :class="headerClass">
-      <div v-if="label">
+      <div class="label-wrapper" :class="labelWrapperClass">
         <slot :label="label" name="label">{{ label }}</slot>
       </div>
-      <div>
+      <div class="btn-add-wrapper" :class="btnAddWrapperClass">
         <slot :add-item="addItem" name="btn-add">
           <VBtn v-bind="addBtnProps" @click="addItem()">{{ addBtnProps.label }}</VBtn>
         </slot>
@@ -78,11 +92,17 @@
       class="d-flex justify-space-between"
       :class="rowClass"
     >
-      <VCol v-for="(key, index) in getActualRowItems(inputsRow)" :key="index" class="flex items-center">
+      <VCol
+        v-for="(key, index) in getActualRowItems(inputsRow)"
+        :key="index"
+        class="flex items-center"
+        :class="onClass({ input: inputsRow[key], key, index })"
+      >
         <InputForm v-if="inputsRow[key].isCustomInput" :key="`input-${rowIndex}`" v-model="inputsRow[key]" />
       </VCol>
-      <VCol class="d-flex align-center" cols="2">
+      <VCol class="d-flex align-center" :cols="colsRemove">
         <slot
+          name="remove-btn"
           :remove-item="
             () => {
               listData.remove(inputsRow);
