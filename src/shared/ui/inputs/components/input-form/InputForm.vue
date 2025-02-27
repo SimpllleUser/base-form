@@ -18,22 +18,33 @@
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value)
   });
+
+  const canShowdetail = computed(() => !input.value.isValid() || input.value.hint);
 </script>
 
 <template>
   <label v-if="input.label" class="v-label">{{ input.label }} </label>
   <component :is="input.component" v-model="input" />
-  <div aria-live="polite" class="v-messages mt-2" role="alert" style="opacity: 1">
-    <Transition>
-      <div v-if="!input.isValid()" class="v-messages__message text-error">{{ input.getErrors() }}</div>
-    </Transition>
-    <Transition>
-      <div v-if="input.hint" class="v-messages__message mt-2">{{ input.hint }}</div>
-    </Transition>
-  </div>
+  <slot :errors="input.getErrors()" :hint="input.hint" :is-valid="input.isValid()" name="info">
+    <div v-show="canShowdetail" aria-live="polite" class="v-messages mt-1" role="alert">
+      <Transition>
+        <slot :hint="input.hint" name="hint">
+          <div v-if="input.hint" class="v-messages__message mt-2">{{ input.hint }}</div>
+        </slot>
+      </Transition>
+      <Transition>
+        <slot :errors="input.getErrors()" :is-valid="input.isValid()" name="errors">
+          <div v-if="!input.isValid()" class="v-messages__message text-error mt-2">{{ input.getErrors() }}</div>
+        </slot>
+      </Transition>
+    </div>
+  </slot>
 </template>
 
 <style lang="scss" scoped>
+  .v-messages {
+    opacity: 1;
+  }
   .v-enter-active,
   .v-leave-active {
     transition: opacity 0.5s ease;
