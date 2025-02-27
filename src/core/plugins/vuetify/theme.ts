@@ -17,8 +17,8 @@ export const theme = {
         warning: 'hsl(0, 84.2%, 60.2%)',
         border: 'hsl(220, 13%, 91%)',
         input: 'hsl(220, 13%, 91%)',
-        ring: 'hsl(262.1, 83.3%, 57.8%)',
-      },
+        ring: 'hsl(262.1, 83.3%, 57.8%)'
+      }
     },
     dark: {
       dark: true,
@@ -36,8 +36,8 @@ export const theme = {
         warning: 'hsl(0, 62.8%, 30.6%)',
         border: 'hsl(215, 27.9%, 16.9%)',
         input: 'hsl(215, 27.9%, 16.9%)',
-        ring: 'hsl(263.4, 70%, 50.4%)',
-      },
-    },
-  },
+        ring: 'hsl(263.4, 70%, 50.4%)'
+      }
+    }
+  }
 };
