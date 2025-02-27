@@ -27,7 +27,7 @@
           <BaseForm
             :config="useEntity(data)"
             :params="{
-              action: ActionForm.Save
+              action: ActionForm.Create
             }"
             @on-submit="onSubmit"
           >
@@ -64,6 +64,9 @@
                         >Add by default</VBtn
                       >
                     </div>
+                  </template>
+                  <template #empty>
+                    <div>Empty</div>
                   </template>
                 </InputList>
                 <VBtn :color="Colors.Primary" :variant="Variants.Outlined" @click="addItemListByData(form.list)"

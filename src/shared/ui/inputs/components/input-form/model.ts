@@ -3,25 +3,25 @@ import { InputFormFundamentalFields } from '../../../../../shared/ui/form';
 import { DEFAULT_PARAMS_INPUT } from '../../constants';
 
 interface InputFormParamsFields {
-  hint: string
-  label: string
-  placeholder: string
-  rules: Partial<ValidationParams> | object
+  hint: string;
+  label: string;
+  placeholder: string;
+  rules: Partial<ValidationParams> | object;
 }
 
-export type InputFormParams = Partial<InputFormParamsFields>
+export type InputFormParams = Partial<InputFormParamsFields>;
 
 export interface BaseInputConfig<T> {
   component: string | unknown;
   type?: string;
-  inputValidator: InputValidator<T>
+  inputValidator: InputValidator<T>;
   getValue(): unknown;
   isValid(): boolean;
 }
 
 export abstract class InputFormAbstract {
-  isCustomInput = true
-  value: unknown
+  isCustomInput = true;
+  value: unknown;
 
   hint: string = DEFAULT_PARAMS_INPUT.hint;
 
@@ -31,9 +31,9 @@ export abstract class InputFormAbstract {
 
   rules: Partial<ValidationParams> = DEFAULT_PARAMS_INPUT.rules;
 
-  inputValidator: InputValidator<unknown>
+  inputValidator: InputValidator<unknown>;
 
-  allowValidate = false
+  allowValidate = false;
 
   protected constructor(data: Partial<InputFormFundamentalFields<string>> = DEFAULT_PARAMS_INPUT) {
     this.hint = data?.hint || '';
