@@ -34,6 +34,7 @@
     btnAddWrapperClass?: string;
     colsRemove?: number;
     onItemClass?: (params: OnItemClassParams) => string;
+    withHedeDivider?: boolean;
   }
 
   interface Emits {
@@ -41,7 +42,9 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    colsRemove: 2
+    colsRemove: 1,
+    onItemClass: () => '',
+    withHedeDivider: true,
   });
   const emit = defineEmits<Emits>();
 
@@ -71,7 +74,7 @@
     listData.value.add();
   };
 
-  const onClass = (params: OnItemClassParams) => props.onItemClass(params);
+  const onClass = (params: OnItemClassParams) => props?.onItemClass(params);
 </script>
 
 <template>
@@ -86,33 +89,38 @@
         </slot>
       </div>
     </div>
-    <VRow
-      v-for="(inputsRow, rowIndex) in listData.items"
-      :key="rowIndex"
-      class="d-flex justify-space-between"
-      :class="rowClass"
-    >
-      <VCol
-        v-for="(key, index) in getActualRowItems(inputsRow)"
-        :key="index"
-        class="flex items-center"
-        :class="onClass({ input: inputsRow[key], key, index })"
+    <div v-if="withHedeDivider">
+      <VDivider />
+    </div>
+    <div :class="{ 'py-4': listData.items.length }">
+      <VRow
+        v-for="(inputsRow, rowIndex) in listData.items"
+        :key="rowIndex"
+        class="d-flex justify-space-between"
+        :class="rowClass"
       >
-        <InputForm v-if="inputsRow[key].isCustomInput" :key="`input-${rowIndex}`" v-model="inputsRow[key]" />
-      </VCol>
-      <VCol class="d-flex align-center" :cols="colsRemove">
-        <slot
-          name="remove-btn"
-          :remove-item="
-            () => {
-              listData.remove(inputsRow);
-            }
-          "
+        <VCol
+          v-for="(key, index) in getActualRowItems(inputsRow)"
+          :key="index"
+          class="flex items-center"
+          :class="onClass({ input: inputsRow[key], key, index })"
         >
-          <VBtn v-bind="removeBtnProps" :icon="Icon.TrashCan" @click="listData.remove(inputsRow)" />
-        </slot>
-      </VCol>
-    </VRow>
+          <InputForm v-if="inputsRow[key].isCustomInput" :key="`input-${rowIndex}`" v-model="inputsRow[key]" />
+        </VCol>
+        <VCol class="d-flex align-center" :cols="colsRemove">
+          <slot
+            name="remove-btn"
+            :remove-item="
+              () => {
+                listData.remove(inputsRow);
+              }
+            "
+          >
+            <VBtn v-bind="removeBtnProps" :icon="Icon.TrashCan" @click="listData.remove(inputsRow)" />
+          </slot>
+        </VCol>
+      </VRow>
+    </div>
     <div v-if="isEmptyList">
       <slot name="empty"></slot>
     </div>
