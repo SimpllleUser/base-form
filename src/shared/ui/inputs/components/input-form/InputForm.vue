@@ -24,7 +24,7 @@
 
 <template>
   <label v-if="input.label" class="v-label">{{ input.label }} </label>
-  <component :is="input.component" v-model="input" />
+  <component :is="input.component" v-model="input" v-bind="$attrs" />
   <slot :errors="input.getErrors()" :hint="input.hint" :is-valid="input.isValid()" name="info">
     <div v-show="canShowdetail" aria-live="polite" class="v-messages mt-1" role="alert">
       <Transition>

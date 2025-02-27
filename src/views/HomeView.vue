@@ -69,9 +69,9 @@
                     <div>Empty</div>
                   </template>
                 </InputList>
-                <!-- <VBtn :color="Colors.Primary" :variant="Variants.Outlined" @click="addItemListByData(form.list)"
+                <VBtn :color="Colors.Primary" :variant="Variants.Outlined" @click="addItemListByData(form.list)"
                   >Add item to list by data</VBtn
-                > -->
+                >
               </div>
             </template>
           </BaseForm>

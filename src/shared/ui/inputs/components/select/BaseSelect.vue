@@ -25,6 +25,7 @@
     :chips="input.chips"
     :clearable="input.clearable"
     hide-details
+    v-bind="$attrs"
     :item-title="input.itemTitle"
     :item-value="input.itemValue"
     :items="input.options"

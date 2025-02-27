@@ -1,32 +1,32 @@
 <script lang="ts" setup>
+  import { computed, defineEmits, defineProps } from 'vue';
+  import { ToggleCheckInput } from '../model';
 
-import { computed, defineProps, defineEmits } from 'vue';
-import { ToggleCheckInput } from '../model';
+  interface Props {
+    modelValue: ToggleCheckInput;
+  }
 
-interface Props {
-  modelValue: ToggleCheckInput
-}
+  interface Emits {
+    (event: 'update:modelValue', payload: ToggleCheckInput): void;
+  }
 
-interface Emits {
-  (event: 'update:modelValue', payload: ToggleCheckInput): void
-}
+  const props = defineProps<Props>();
+  const emit = defineEmits<Emits>();
 
-const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
-
-const input = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-});
+  const input = computed({
+    get: () => props.modelValue,
+    set: (value) => emit('update:modelValue', value)
+  });
 </script>
 
 <template>
   <v-checkbox
     v-model="input.value"
-    :color="input.color"
     :append-icon="input.appendIcon"
-    :prepend-icon-icon="input.prependIcon"
-    :placeholder="input.placeholder"
+    :color="input.color"
+    v-bind="$attrs"
     hide-details
+    :placeholder="input.placeholder"
+    :prepend-icon-icon="input.prependIcon"
   />
 </template>
