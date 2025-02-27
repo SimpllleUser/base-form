@@ -27,7 +27,7 @@
           <BaseForm
             :config="useEntity(data)"
             :params="{
-              action: ActionForm.Save
+              action: ActionForm.Create
             }"
             @on-submit="onSubmit"
           >
