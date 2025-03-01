@@ -44,7 +44,7 @@
   const props = withDefaults(defineProps<Props>(), {
     colsRemove: 1,
     onItemClass: () => '',
-    withHedeDivider: true,
+    withHedeDivider: true
   });
   const emit = defineEmits<Emits>();
 
@@ -92,37 +92,79 @@
     <div v-if="withHedeDivider">
       <VDivider />
     </div>
-    <div :class="{ 'py-4': listData.items.length }">
-      <VRow
-        v-for="(inputsRow, rowIndex) in listData.items"
-        :key="rowIndex"
-        class="d-flex justify-space-between"
-        :class="rowClass"
-      >
-        <VCol
-          v-for="(key, index) in getActualRowItems(inputsRow)"
-          :key="index"
-          class="flex items-center"
-          :class="onClass({ input: inputsRow[key], key, index })"
+    <div :class="{ 'test py-4': listData.items.length }">
+      <TransitionGroup name="" tag="div">
+        <VRow
+          v-for="(inputsRow, rowIndex) in listData.items"
+          :key="rowIndex"
+          class="d-flex justify-space-between"
+          :class="rowClass"
         >
-          <InputForm v-if="inputsRow[key].isCustomInput" :key="`input-${rowIndex}`" v-model="inputsRow[key]" />
-        </VCol>
-        <VCol class="d-flex align-center" :cols="colsRemove">
-          <slot
-            name="remove-btn"
-            :remove-item="
-              () => {
-                listData.remove(inputsRow);
-              }
-            "
+          <VCol
+            v-for="(key, index) in getActualRowItems(inputsRow)"
+            :key="index"
+            class="flex items-center"
+            :class="onClass({ input: inputsRow[key], key, index })"
           >
-            <VBtn v-bind="removeBtnProps" :icon="Icon.TrashCan" @click="listData.remove(inputsRow)" />
-          </slot>
-        </VCol>
-      </VRow>
+            <InputForm v-if="inputsRow[key].isCustomInput" :key="`input-${rowIndex}`" v-model="inputsRow[key]" />
+          </VCol>
+          <VCol class="d-flex align-center" :cols="colsRemove">
+            <slot
+              name="remove-btn"
+              :remove-item="
+                () => {
+                  listData.remove(inputsRow);
+                }
+              "
+            >
+              <VBtn v-bind="removeBtnProps" :icon="Icon.TrashCan" @click="listData.remove(inputsRow)" />
+            </slot>
+          </VCol>
+        </VRow>
+      </TransitionGroup>
     </div>
     <div v-if="isEmptyList">
       <slot name="empty"></slot>
     </div>
   </div>
 </template>
+
+<style scoped>
+  /* Animate on render element */
+  .list-enter-active {
+    transition: all 0.3s ease;
+  }
+
+  /* Animate on remove element */
+  .list-leave-active {
+    transition: all 0.3s ease;
+    position: absolute;
+    width: 100%;
+  }
+
+  /* Innitial state of rendering */
+  .list-enter-from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  /* Final  state of removing */
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+  }
+
+  /* Animate the movement of the remaining elements */
+  .list-move {
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+
+  /* Container for correct positioning */
+  :deep(.v-row) {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+</style>
