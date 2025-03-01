@@ -35,6 +35,7 @@
     colsRemove?: number;
     onItemClass?: (params: OnItemClassParams) => string;
     withHedeDivider?: boolean;
+    withAnimation?: boolean;
   }
 
   interface Emits {
@@ -75,6 +76,8 @@
   };
 
   const onClass = (params: OnItemClassParams) => props?.onItemClass(params);
+
+  const transitionGroupName = computed(() => (props.withAnimation ? 'list' : ''));
 </script>
 
 <template>
@@ -93,7 +96,7 @@
       <VDivider />
     </div>
     <div :class="{ 'test py-4': listData.items.length }">
-      <TransitionGroup name="" tag="div">
+      <TransitionGroup :name="transitionGroupName" tag="div">
         <VRow
           v-for="(inputsRow, rowIndex) in listData.items"
           :key="rowIndex"
