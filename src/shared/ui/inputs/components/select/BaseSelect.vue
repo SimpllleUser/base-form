@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import { computed, defineEmits, defineProps } from 'vue';
   import { SelectInput } from './model';
+  import { formStyles } from '../../../../../core/plugins/vuetify/config/index';
 
   interface Props {
     modelValue: SelectInput;
@@ -25,7 +26,10 @@
     :chips="input.chips"
     :clearable="input.clearable"
     hide-details
-    v-bind="$attrs"
+    v-bind="{
+      ...formStyles.select,
+      ...$attrs
+    }"
     :item-title="input.itemTitle"
     :item-value="input.itemValue"
     :items="input.options"

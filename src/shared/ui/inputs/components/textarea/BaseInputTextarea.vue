@@ -2,6 +2,7 @@
   import { computed, defineEmits, defineProps } from 'vue';
   import { ABaseInput } from '../../../inputs/models';
   import { TextareaInput } from './model';
+  import { formStyles } from '../../../../../core/plugins/vuetify/config/index';
 
   interface Props {
     modelValue: TextareaInput;
@@ -39,7 +40,10 @@
     :type="input.type"
     :no-resize="input.noResize"
     :value="input.value"
-    v-bind="$attrs"
+    v-bind="{
+      ...formStyles.textarea,
+      ...$attrs
+    }"
     hide-details
     @input="onInput"
   />
