@@ -2,6 +2,7 @@
   import { computed, defineEmits, defineOptions, defineProps } from 'vue';
 
   import { ToggleCheckInput } from '../model';
+  import { formStyles } from '../../../../../../core/plugins/vuetify/config/index';
 
   defineOptions({
     name: 'BaseSwitchInput'
@@ -29,7 +30,10 @@
     v-model="input.value"
     :append-icon="input.appendIcon"
     :color="input.color"
-    v-bind="$attrs"
+    v-bind="{
+      ...formStyles.switch,
+      ...$attrs
+    }"
     hide-details
     :placeholder="input.placeholder"
     :prepend-icon-icon="input.prependIcon"

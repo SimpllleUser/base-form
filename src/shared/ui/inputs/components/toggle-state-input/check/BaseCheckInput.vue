@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import { computed, defineEmits, defineProps } from 'vue';
   import { ToggleCheckInput } from '../model';
+  import { formStyles } from '../../../../../../core/plugins/vuetify/config/index';
 
   interface Props {
     modelValue: ToggleCheckInput;
@@ -24,7 +25,10 @@
     v-model="input.value"
     :append-icon="input.appendIcon"
     :color="input.color"
-    v-bind="$attrs"
+    v-bind="{
+      ...formStyles.checkbox,
+      ...$attrs
+    }"
     hide-details
     :placeholder="input.placeholder"
     :prepend-icon-icon="input.prependIcon"

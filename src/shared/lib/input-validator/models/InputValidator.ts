@@ -1,17 +1,14 @@
+import { isBoolean, isString, mapValues } from 'lodash';
 import {
-  isBoolean,
-  isString,
-  mapValues,
-} from 'lodash';
-import {
-  rules, ValidationFunctionMap, ValidationParams, ValidationResult,
+  rules,
+  ValidationFunctionMap,
+  ValidationParams,
+  ValidationResult
 } from '../../../../shared/lib/input-validator';
 
-type ValidationRulesScheme = Partial<
-  Record<
-    keyof ValidationFunctionMap,
-    Partial<ValidationParams[keyof ValidationParams]>>
-> | object;
+type ValidationRulesScheme =
+  | Partial<Record<keyof ValidationFunctionMap, Partial<ValidationParams[keyof ValidationParams]>>>
+  | object;
 
 export class InputValidator<T> {
   private readonly validationRules?: ValidationRulesScheme;
@@ -24,9 +21,16 @@ export class InputValidator<T> {
     return rules[rule] && typeof rules[rule] === 'function';
   }
 
-  private checkRuleByValue(value: unknown, { ruleValue, ruleKey }: {
-    ruleValue: never, ruleKey: keyof ValidationFunctionMap
-  }): ValidationResult {
+  private checkRuleByValue(
+    value: unknown,
+    {
+      ruleValue,
+      ruleKey
+    }: {
+      ruleValue: never;
+      ruleKey: keyof ValidationFunctionMap;
+    }
+  ): ValidationResult {
     if (this.isValidationRule(ruleKey)) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -37,19 +41,17 @@ export class InputValidator<T> {
 
   isValid(value: unknown): boolean {
     return Object.values(
-      mapValues(
-        this.validationRules,
-        (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
-      ),
+      mapValues(this.validationRules, (ruleValue, ruleKey: keyof ValidationFunctionMap) =>
+        this.checkRuleByValue(value, { ruleValue, ruleKey })
+      )
     ).every(isBoolean);
   }
 
   getErrors(value: T): string {
     return Object.values(
-      mapValues(
-        this.validationRules,
-        (ruleValue, ruleKey: keyof ValidationFunctionMap) => this.checkRuleByValue(value, { ruleValue, ruleKey }),
-      ),
+      mapValues(this.validationRules, (ruleValue, ruleKey: keyof ValidationFunctionMap) =>
+        this.checkRuleByValue(value, { ruleValue, ruleKey })
+      )
     ).filter(isString)[0];
   }
 }

@@ -2,6 +2,7 @@
   import { computed, defineEmits, defineProps } from 'vue';
   import { TextInput } from './model';
   import type { ABaseInput } from '../../models/BaseInput';
+  import { formStyles } from '../../../../../core/plugins/vuetify/config/index';
 
   interface Props {
     modelValue: TextInput;
@@ -28,9 +29,12 @@
 <template>
   <VTextField
     v-model="input.value"
+    v-bind="{
+      ...formStyles.textField,
+      ...$attrs
+    }"
     :append-inner-icon="input.appendInnerIcon"
     :clearable="input.clearable"
-    v-bind="$attrs"
     hide-details
     :placeholder="input.placeholder"
     :suffix="input.suffix"
